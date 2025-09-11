@@ -199,6 +199,29 @@
             color: var(--text-light);
             font-size: 1.2rem;
             position: relative;
+            overflow: hidden;
+        }
+
+        .thumbnail-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .thumbnail-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .placeholder-content {
@@ -541,6 +564,7 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            z-index: 5;
         }
 
         /* Share Components */
@@ -579,32 +603,8 @@
             color: #25D366;
         }
 
-        .share-btn.facebook {
-            color: #1877F2;
-        }
-
-        .share-btn.twitter {
-            color: #1DA1F2;
-        }
-
         .share-btn.telegram {
             color: #0088CC;
-        }
-
-        .share-btn.linkedin {
-            color: #0077B5;
-        }
-
-        .share-btn.reddit {
-            color: #FF5700;
-        }
-
-        .share-btn.messenger {
-            color: #006AFF;
-        }
-
-        .share-btn.pinterest {
-            color: #BD081C;
         }
 
         .share-btn.copy {
@@ -633,9 +633,12 @@
             <div class="player-container">
                 <div id="video-player">
                     <div class="player-placeholder">
-                        <div class="placeholder-content">
-                            <i class="fas fa-lock" style="font-size: 3rem; margin-bottom: 20px; color: var(--primary);"></i>
-                            <p>Enter access key to watch live streaming</p>
+                        <img src="https://i.supaimg.com/a765d882-211b-4b18-9676-2e30e115fb41.jpg" alt="Cricket Match Preview" class="thumbnail-image">
+                        <div class="thumbnail-overlay">
+                            <div class="placeholder-content">
+                                <i class="fas fa-lock" style="font-size: 3rem; margin-bottom: 20px; color: var(--primary);"></i>
+                                <p>Enter access key to watch live streaming</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -667,8 +670,8 @@
                     <div class="feature-icon">
                         <i class="fas fa-hd"></i>
                     </div>
-                    <h3>HD Quality</h3>
-                    <p>Enjoy crystal clear HD streaming with adaptive bitrate</p>
+                    <h3>Ultra HD Quality</h3>
+                    <p>Enjoy crystal clear 4K streaming with adaptive bitrate technology</p>
                 </div>
                 
                 <div class="feature-card">
@@ -676,7 +679,7 @@
                         <i class="fas fa-bolt"></i>
                     </div>
                     <h3>Low Latency</h3>
-                    <p>Real-time streaming with minimal delay</p>
+                    <p>Real-time streaming with minimal delay for live action</p>
                 </div>
                 
                 <div class="feature-card">
@@ -692,37 +695,19 @@
                         <i class="fas fa-mobile-alt"></i>
                     </div>
                     <h3>Multi-Device</h3>
-                    <p>Watch on your phone, tablet, or computer</p>
+                    <p>Watch on your phone, tablet, or computer seamlessly</p>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Social Media Share Buttons -->
+    <!-- Social Media Share Buttons - Only WhatsApp and Telegram remain -->
     <div class="share-components">
         <div class="share-btn whatsapp" id="whatsapp-share">
             <i class="fab fa-whatsapp"></i>
         </div>
-        <div class="share-btn facebook" id="facebook-share">
-            <i class="fab fa-facebook-f"></i>
-        </div>
-        <div class="share-btn twitter" id="twitter-share">
-            <i class="fab fa-twitter"></i>
-        </div>
         <div class="share-btn telegram" id="telegram-share">
             <i class="fab fa-telegram"></i>
-        </div>
-        <div class="share-btn linkedin" id="linkedin-share">
-            <i class="fab fa-linkedin-in"></i>
-        </div>
-        <div class="share-btn reddit" id="reddit-share">
-            <i class="fab fa-reddit-alien"></i>
-        </div>
-        <div class="share-btn messenger" id="messenger-share">
-            <i class="fab fa-facebook-messenger"></i>
-        </div>
-        <div class="share-btn pinterest" id="pinterest-share">
-            <i class="fab fa-pinterest"></i>
         </div>
         <div class="share-btn copy" id="copy-link">
             <i class="fas fa-link"></i>
@@ -738,7 +723,7 @@
     <div class="modal" id="access-key-modal">
         <div class="modal-content">
             <h2>Enter Access Key</h2>
-            <p>You need a valid access key to watch live streaming content. Please enter your key below.</p>
+            <p>You need a valid access key to watch live streaming content. Please enter "Murli Kumar" as the access key.</p>
             
             <input type="password" class="key-input" id="access-key-input" placeholder="Enter your access key">
             
@@ -771,7 +756,7 @@
         const statusDot = document.getElementById('status-dot');
         const statusText = document.getElementById('status-text');
         const toast = document.getElementById('toast');
-        const spinner = document.getElementById('loading-spinner');
+        let spinner = document.getElementById('loading-spinner');
         
         // Valid access key
         const VALID_ACCESS_KEY = "Murli Kumar";
@@ -871,9 +856,12 @@
             const playerContainer = document.getElementById('video-player');
             playerContainer.innerHTML = `
                 <div class="player-placeholder">
-                    <div class="placeholder-content">
-                        <i class="fas fa-lock" style="font-size: 3rem; margin-bottom: 20px; color: var(--primary);"></i>
-                        <p>Enter access key to watch live streaming</p>
+                    <img src="https://i.supaimg.com/a765d882-211b-4b18-9676-2e30e115fb41.jpg" alt="Cricket Match Preview" class="thumbnail-image">
+                    <div class="thumbnail-overlay">
+                        <div class="placeholder-content">
+                            <i class="fas fa-lock" style="font-size: 3rem; margin-bottom: 20px; color: var(--primary);"></i>
+                            <p>Enter access key to watch live streaming</p>
+                        </div>
                     </div>
                 </div>
             `;
@@ -884,8 +872,17 @@
             hdBadge.innerHTML = '<i class="fas fa-hd"></i> HD';
             playerContainer.appendChild(hdBadge);
             
+            // Add spinner back
+            const newSpinner = document.createElement('div');
+            newSpinner.className = 'spinner';
+            newSpinner.id = 'loading-spinner';
+            newSpinner.style.display = 'none';
+            playerContainer.appendChild(newSpinner);
+            spinner = newSpinner;
+            
             // Clear stored access key
             localStorage.removeItem('cricketAccessKey');
+            sessionStorage.removeItem('cricketAccessKey');
             
             // Reset server status
             updateServerStatus('', 'Enter access key to start streaming');
@@ -935,26 +932,8 @@
                 case 'whatsapp':
                     shareUrl = `https://api.whatsapp.com/send?text=${text}%20${pageUrl}`;
                     break;
-                case 'facebook':
-                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
-                    break;
-                case 'twitter':
-                    shareUrl = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${text}`;
-                    break;
                 case 'telegram':
                     shareUrl = `https://t.me/share/url?url=${pageUrl}&text=${text}`;
-                    break;
-                case 'linkedin':
-                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
-                    break;
-                case 'reddit':
-                    shareUrl = `https://reddit.com/submit?url=${pageUrl}&title=${text}`;
-                    break;
-                case 'messenger':
-                    shareUrl = `fb-messenger://share/?link=${pageUrl}`;
-                    break;
-                case 'pinterest':
-                    shareUrl = `https://pinterest.com/pin/create/button/?url=${pageUrl}&description=${text}`;
                     break;
                 case 'copy':
                     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -1033,15 +1012,9 @@
         // Theme toggle functionality
         themeToggle.addEventListener('click', toggleTheme);
         
-        // Social media share buttons
+        // Social media share buttons - only WhatsApp and Telegram remain
         document.getElementById('whatsapp-share').addEventListener('click', () => shareOnPlatform('whatsapp'));
-        document.getElementById('facebook-share').addEventListener('click', () => shareOnPlatform('facebook'));
-        document.getElementById('twitter-share').addEventListener('click', () => shareOnPlatform('twitter'));
         document.getElementById('telegram-share').addEventListener('click', () => shareOnPlatform('telegram'));
-        document.getElementById('linkedin-share').addEventListener('click', () => shareOnPlatform('linkedin'));
-        document.getElementById('reddit-share').addEventListener('click', () => shareOnPlatform('reddit'));
-        document.getElementById('messenger-share').addEventListener('click', () => shareOnPlatform('messenger'));
-        document.getElementById('pinterest-share').addEventListener('click', () => shareOnPlatform('pinterest'));
         document.getElementById('copy-link').addEventListener('click', () => shareOnPlatform('copy'));
         
         // Check session storage for access key
