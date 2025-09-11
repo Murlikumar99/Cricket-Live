@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Live - Premium Streaming</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1E40AF; /* Cricket blue */
+            --primary-dark: #1E3A8A;
+            --primary-glow: 0 0 10px rgba(30, 64, 175, 0.7), 0 0 20px rgba(30, 64, 175, 0.4);
+            --secondary: #DC2626; /* Red accent */
+            --secondary-glow: 0 0 10px rgba(220, 38, 38, 0.5);
+            --bg-dark: #0A1128; /* Navy blue */
+            --bg-darker: #050A1D;
+            --bg-card: #131C3F;
+            --text-light: #FFFFFF;
+            --text-muted: #A0AEC0;
+            --border-light: rgba(30, 64, 175, 0.3);
+            --border-dark: rgba(30, 64, 175, 0.1);
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --radius: 16px;
+        }
+
+        .light-mode {
+            --primary: #1E40AF;
+            --primary-dark: #1E3A8A;
+            --primary-glow: 0 0 10px rgba(30, 64, 175, 0.5);
+            --secondary: #DC2626;
+            --secondary-glow: 0 0 10px rgba(220, 38, 38, 0.3);
+            --bg-dark: #f0f2f5;
+            --bg-darker: #e4e6ef;
+            --bg-card: #ffffff;
+            --text-light: #2d3748;
+            --text-muted: #718096;
+            --border-light: rgba(30, 64, 175, 0.2);
+            --border-dark: rgba(30, 64, 175, 0.1);
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-dark);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            height: 50px;
+            width: 50px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+            box-shadow: var(--primary-glow);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: var(--primary-glow);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border-radius: 50%;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(30, 64, 175, 0.8);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(30, 64, 175, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: var(--primary-glow);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .player-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background-color: var(--bg-card);
+            aspect-ratio: 16/9;
+            position: relative;
+            border: 1px solid var(--border-light);
+        }
+
+        #video-player {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-card);
+        }
+
+        .player-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+            color: var(--text-light);
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .placeholder-content {
+            text-align: center;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .play-btn {
+            padding: 16px 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        /* Access Key Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            padding: 35px;
+            border-radius: var(--radius);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border-top: 3px solid var(--primary);
+        }
+
+        .modal h2 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .modal p {
+            margin-bottom: 25px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .key-input {
+            width: 100%;
+            padding: 15px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-light);
+            font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .key-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.2);
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            color: var(--text-muted);
+        }
+
+        /* Features Section */
+        .features {
+            margin: 60px 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: var(--primary);
+            text-shadow: var(--primary-glow);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 3px solid var(--primary);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-shadow: var(--primary-glow);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Server Status */
+        .server-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: var(--radius);
+            background-color: rgba(30, 64, 175, 0.1);
+            font-weight: 500;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .status-dot.connected {
+            background-color: #10B981;
+            box-shadow: 0 0 8px #10B981;
+        }
+
+        .status-dot.connecting {
+            background-color: #F59E0B;
+            box-shadow: 0 0 8px #F59E0B;
+            animation: pulse 1.5s infinite;
+        }
+
+        .status-dot.error {
+            background-color: #EF4444;
+            box-shadow: 0 0 8px #EF4444;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -20px;
+            margin-left: -20px;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--bg-card);
+            color: var(--text-light);
+            padding: 14px 28px;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: none;
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+        }
+
+        .toast.error {
+            background-color: rgba(244, 67, 54, 0.2);
+            border-color: rgba(244, 67, 54, 0.5);
+        }
+
+        .toast.success {
+            background-color: rgba(76, 175, 80, 0.2);
+            border-color: rgba(76, 175, 80, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+            border-top: 1px solid var(--border-dark);
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .developer {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-actions {
+                gap: 10px;
+            }
+            
+            .feature-card {
+                padding: 20px 15px;
+            }
+            
+            .logo {
+                height: 40px;
+                width: 40px;
+                font-size: 16px;
+            }
+            
+            .logo-text {
+                font-size: 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .share-components {
+                bottom: 70px;
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                flex-direction: column;
+                gap: 5px;
+                align-items: flex-start;
+            }
+            
+            .logo-text {
+                font-size: 18px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .modal-content {
+                padding: 25px;
+            }
+            
+            .share-components {
+                flex-direction: row;
+                bottom: 70px;
+                right: 50%;
+                transform: translateX(50%);
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .share-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
+
+        /* HD Quality Badge */
+        .hd-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Share Components */
+        .share-components {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .share-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-card);
+            color: var(--primary);
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-size: 1.2rem;
+            border: 1px solid var(--border-dark);
+        }
+
+        .share-btn:hover {
+            transform: scale(1.15);
+            box-shadow: var(--primary-glow);
+        }
+
+        .share-btn.whatsapp {
+            color: #25D366;
+        }
+
+        .share-btn.facebook {
+            color: #1877F2;
+        }
+
+        .share-btn.twitter {
+            color: #1DA1F2;
+        }
+
+        .share-btn.telegram {
+            color: #0088CC;
+        }
+
+        .share-btn.linkedin {
+            color: #0077B5;
+        }
+
+        .share-btn.reddit {
+            color: #FF5700;
+        }
+
+        .share-btn.messenger {
+            color: #006AFF;
+        }
+
+        .share-btn.pinterest {
+            color: #BD081C;
+        }
+
+        .share-btn.copy {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo">CL</div>
+                <div class="logo-text">Cricket Live</div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-icon btn-secondary" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <section class="hero">
+            <h1>Live Cricket Streaming</h1>
+            <p>Watch live cricket matches from around the world with premium streaming quality and no interruptions.</p>
+            
+            <div class="player-container">
+                <div id="video-player">
+                    <div class="player-placeholder">
+                        <div class="placeholder-content">
+                            <i class="fas fa-lock" style="font-size: 3rem; margin-bottom: 20px; color: var(--primary);"></i>
+                            <p>Enter access key to watch live streaming</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="spinner" id="loading-spinner"></div>
+                <div class="hd-badge">
+                    <i class="fas fa-hd"></i> HD
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary play-btn" id="play-btn">
+                    <i class="fas fa-play"></i> Watch Live
+                </button>
+                <button class="btn btn-secondary" id="reset-btn">
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+            </div>
+            
+            <div class="server-status" id="server-status">
+                <div class="status-dot" id="status-dot"></div>
+                <span id="status-text">Enter access key to start streaming</span>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2>Premium Streaming Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hd"></i>
+                    </div>
+                    <h3>HD Quality</h3>
+                    <p>Enjoy crystal clear HD streaming with adaptive bitrate</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Low Latency</h3>
+                    <p>Real-time streaming with minimal delay</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Connection</h3>
+                    <p>Encrypted streams for your privacy and security</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Multi-Device</h3>
+                    <p>Watch on your phone, tablet, or computer</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Social Media Share Buttons -->
+    <div class="share-components">
+        <div class="share-btn whatsapp" id="whatsapp-share">
+            <i class="fab fa-whatsapp"></i>
+        </div>
+        <div class="share-btn facebook" id="facebook-share">
+            <i class="fab fa-facebook-f"></i>
+        </div>
+        <div class="share-btn twitter" id="twitter-share">
+            <i class="fab fa-twitter"></i>
+        </div>
+        <div class="share-btn telegram" id="telegram-share">
+            <i class="fab fa-telegram"></i>
+        </div>
+        <div class="share-btn linkedin" id="linkedin-share">
+            <i class="fab fa-linkedin-in"></i>
+        </div>
+        <div class="share-btn reddit" id="reddit-share">
+            <i class="fab fa-reddit-alien"></i>
+        </div>
+        <div class="share-btn messenger" id="messenger-share">
+            <i class="fab fa-facebook-messenger"></i>
+        </div>
+        <div class="share-btn pinterest" id="pinterest-share">
+            <i class="fab fa-pinterest"></i>
+        </div>
+        <div class="share-btn copy" id="copy-link">
+            <i class="fas fa-link"></i>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Cricket Live Streaming. Premium access required.</p>
+        <p class="developer">Website Developed By Murli Kumar</p>
+    </footer>
+
+    <!-- Access Key Modal -->
+    <div class="modal" id="access-key-modal">
+        <div class="modal-content">
+            <h2>Enter Access Key</h2>
+            <p>You need a valid access key to watch live streaming content. Please enter your key below.</p>
+            
+            <input type="password" class="key-input" id="access-key-input" placeholder="Enter your access key">
+            
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="submit-key">
+                    <i class="fas fa-key"></i> Submit Key
+                </button>
+                <button class="btn btn-secondary" id="close-modal">Cancel</button>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="remember-key">
+                <label for="remember-key">Remember key on this device</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // DOM Elements
+        const accessKeyModal = document.getElementById('access-key-modal');
+        const accessKeyInput = document.getElementById('access-key-input');
+        const submitKeyBtn = document.getElementById('submit-key');
+        const closeModalBtn = document.getElementById('close-modal');
+        const rememberKeyCheckbox = document.getElementById('remember-key');
+        const playBtn = document.getElementById('play-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const themeToggle = document.getElementById('theme-toggle');
+        const statusDot = document.getElementById('status-dot');
+        const statusText = document.getElementById('status-text');
+        const toast = document.getElementById('toast');
+        const spinner = document.getElementById('loading-spinner');
+        
+        // Valid access key
+        const VALID_ACCESS_KEY = "Murli Kumar";
+        
+        // Video URL (hidden from user)
+        const VIDEO_URL = "https://tataplay.slivcdn.com/hls/live/2020591-b/TEN3HD/hdntl=exp=1750582085~acl=%2f*~id=9e40d10a-ddc8-413e-8bad-fc250d39a4c7~data=hdntl~hmac=8a461045379b43fb696b19ba5f49f38d5017755a198550f54e5d47ecd4b974ae/master_3500.m3u8";
+        
+        // Check if access key is already stored
+        function checkStoredAccessKey() {
+            const storedKey = localStorage.getItem('cricketAccessKey');
+            if (storedKey === VALID_ACCESS_KEY) {
+                return true;
+            }
+            return false;
+        }
+        
+        // Show modal function
+        function showAccessKeyModal() {
+            accessKeyModal.style.display = 'flex';
+            accessKeyInput.focus();
+        }
+        
+        // Hide modal function
+        function hideAccessKeyModal() {
+            accessKeyModal.style.display = 'none';
+            accessKeyInput.value = '';
+        }
+        
+        // Validate access key
+        function validateAccessKey(key) {
+            return key === VALID_ACCESS_KEY;
+        }
+        
+        // Update server status
+        function updateServerStatus(status, text) {
+            statusDot.className = 'status-dot ' + status;
+            statusText.textContent = text;
+        }
+        
+        // Show toast message
+        function showToast(message, type = '') {
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Show loading spinner
+        function showLoadingSpinner(show) {
+            spinner.style.display = show ? 'block' : 'none';
+        }
+        
+        // Play video function
+        function playVideo() {
+            if (checkStoredAccessKey()) {
+                // Access key is valid, play the video
+                showLoadingSpinner(true);
+                updateServerStatus('connecting', 'Connecting to SonyLIV server...');
+                
+                // Simulate connection delay
+                setTimeout(() => {
+                    const playerContainer = document.getElementById('video-player');
+                    playerContainer.innerHTML = `
+                        <video id="main-video" controls autoplay style="width: 100%; height: 100%;">
+                            <source src="${VIDEO_URL}" type="application/x-mpegURL">
+                            Your browser does not support the video tag.
+                        </video>
+                    `;
+                    
+                    const video = document.getElementById('main-video');
+                    
+                    video.addEventListener('canplay', () => {
+                        showLoadingSpinner(false);
+                        updateServerStatus('connected', 'Connected to SonyLIV server');
+                        video.play().catch(e => {
+                            showToast('Autoplay blocked. Click play to start video.', 'error');
+                        });
+                    });
+                    
+                    video.addEventListener('error', () => {
+                        showLoadingSpinner(false);
+                        updateServerStatus('error', 'Connection failed');
+                        showToast('Error loading video. Please try again.', 'error');
+                    });
+                }, 2000);
+            } else {
+                // Show access key modal
+                showAccessKeyModal();
+            }
+        }
+        
+        // Reset player function
+        function resetPlayer() {
+            const playerContainer = document.getElementById('video-player');
+            playerContainer.innerHTML = `
+                <div class="player-placeholder">
+                    <div class="placeholder-content">
+                        <i class="fas fa-lock" style="font-size: 3rem; margin-bottom: 20px; color: var(--primary);"></i>
+                        <p>Enter access key to watch live streaming</p>
+                    </div>
+                </div>
+            `;
+            
+            // Add HD badge back
+            const hdBadge = document.createElement('div');
+            hdBadge.className = 'hd-badge';
+            hdBadge.innerHTML = '<i class="fas fa-hd"></i> HD';
+            playerContainer.appendChild(hdBadge);
+            
+            // Clear stored access key
+            localStorage.removeItem('cricketAccessKey');
+            
+            // Reset server status
+            updateServerStatus('', 'Enter access key to start streaming');
+            
+            showToast('Player has been reset', 'success');
+        }
+        
+        // Toggle theme function
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = themeToggle.querySelector('i');
+            
+            if (document.body.classList.contains('light-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        
+        // Initialize theme from localStorage
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const icon = themeToggle.querySelector('i');
+            
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                document.body.classList.remove('light-mode');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+        
+        // Share on social media
+        function shareOnPlatform(platform) {
+            const pageUrl = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Watch live cricket streaming on Cricket Live!');
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'whatsapp':
+                    shareUrl = `https://api.whatsapp.com/send?text=${text}%20${pageUrl}`;
+                    break;
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${text}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${pageUrl}&text=${text}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+                    break;
+                case 'reddit':
+                    shareUrl = `https://reddit.com/submit?url=${pageUrl}&title=${text}`;
+                    break;
+                case 'messenger':
+                    shareUrl = `fb-messenger://share/?link=${pageUrl}`;
+                    break;
+                case 'pinterest':
+                    shareUrl = `https://pinterest.com/pin/create/button/?url=${pageUrl}&description=${text}`;
+                    break;
+                case 'copy':
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                        showToast('Link copied to clipboard!');
+                    }).catch(err => {
+                        // Fallback method for copying
+                        const tempInput = document.createElement('input');
+                        tempInput.value = window.location.href;
+                        document.body.appendChild(tempInput);
+                        tempInput.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(tempInput);
+                        showToast('Link copied to clipboard!');
+                    });
+                    return;
+            }
+            
+            if (shareUrl) {
+                window.open(shareUrl, '_blank');
+            }
+        }
+        
+        // Event Listeners
+        playBtn.addEventListener('click', playVideo);
+        
+        resetBtn.addEventListener('click', resetBtnHandler);
+        
+        function resetBtnHandler() {
+            resetPlayer();
+            // Clear the remember key option
+            rememberKeyCheckbox.checked = false;
+        }
+        
+        submitKeyBtn.addEventListener('click', submitKeyHandler);
+        
+        function submitKeyHandler() {
+            const key = accessKeyInput.value.trim();
+            
+            if (validateAccessKey(key)) {
+                // Save key if remember me is checked
+                if (rememberKeyCheckbox.checked) {
+                    localStorage.setItem('cricketAccessKey', key);
+                } else {
+                    // Store in sessionStorage for this session only
+                    sessionStorage.setItem('cricketAccessKey', key);
+                }
+                
+                hideAccessKeyModal();
+                showToast('Access granted! Enjoy the stream.', 'success');
+                
+                // Play the video after a short delay
+                setTimeout(playVideo, 1000);
+            } else {
+                showToast('Invalid access key. Please try again.', 'error');
+                accessKeyInput.value = '';
+                accessKeyInput.focus();
+            }
+        }
+        
+        closeModalBtn.addEventListener('click', hideAccessKeyModal);
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === accessKeyModal) {
+                hideAccessKeyModal();
+            }
+        });
+        
+        // Allow submitting with Enter key
+        accessKeyInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                submitKeyHandler();
+            }
+        });
+        
+        // Theme toggle functionality
+        themeToggle.addEventListener('click', toggleTheme);
+        
+        // Social media share buttons
+        document.getElementById('whatsapp-share').addEventListener('click', () => shareOnPlatform('whatsapp'));
+        document.getElementById('facebook-share').addEventListener('click', () => shareOnPlatform('facebook'));
+        document.getElementById('twitter-share').addEventListener('click', () => shareOnPlatform('twitter'));
+        document.getElementById('telegram-share').addEventListener('click', () => shareOnPlatform('telegram'));
+        document.getElementById('linkedin-share').addEventListener('click', () => shareOnPlatform('linkedin'));
+        document.getElementById('reddit-share').addEventListener('click', () => shareOnPlatform('reddit'));
+        document.getElementById('messenger-share').addEventListener('click', () => shareOnPlatform('messenger'));
+        document.getElementById('pinterest-share').addEventListener('click', () => shareOnPlatform('pinterest'));
+        document.getElementById('copy-link').addEventListener('click', () => shareOnPlatform('copy'));
+        
+        // Check session storage for access key
+        function checkSessionAccessKey() {
+            const sessionKey = sessionStorage.getItem('cricketAccessKey');
+            if (sessionKey === VALID_ACCESS_KEY) {
+                return true;
+            }
+            return false;
+        }
+        
+        // Initialize
+        initTheme();
+        
+        // Check if we have a valid access key in storage
+        if (checkStoredAccessKey() || checkSessionAccessKey()) {
+            updateServerStatus('', 'Ready to stream');
+        }
+    </script>
+</body>
+</html>
