@@ -3,1225 +3,333 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cricket Live - Premium Streaming</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Cricket Liv - Official Closure Announcement</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #1E40AF;
-            --primary-dark: #1E3A8A;
-            --primary-glow: 0 0 10px rgba(30, 64, 175, 0.7), 0 0 20px rgba(30, 64, 175, 0.4);
-            --secondary: #DC2626;
-            --secondary-glow: 0 0 10px rgba(220, 38, 38, 0.5);
-            --bg-dark: #0A1128;
-            --bg-darker: #050A1D;
-            --bg-card: #131C3F;
-            --text-light: #FFFFFF;
-            --text-muted: #A0AEC0;
-            --border-light: rgba(30, 64, 175, 0.3);
-            --border-dark: rgba(30, 64, 175, 0.1);
-            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            --radius: 16px;
-        }
-
-        .light-mode {
-            --primary: #1E40AF;
-            --primary-dark: #1E3A8A;
-            --primary-glow: 0 0 10px rgba(30, 64, 175, 0.5);
-            --secondary: #DC2626;
-            --secondary-glow: 0 0 10px rgba(220, 38, 38, 0.3);
-            --bg-dark: #f0f2f5;
-            --bg-darker: #e4e6ef;
-            --bg-card: #ffffff;
-            --text-light: #2d3748;
-            --text-muted: #718096;
-            --border-light: rgba(30, 64, 175, 0.2);
-            --border-dark: rgba(30, 64, 175, 0.1);
-            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
-            color: var(--text-light);
-            line-height: 1.6;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #000428, #004e92);
+            color: #fff;
             min-height: 100vh;
-            padding: 20px;
-            transition: background 0.3s ease, color 0.3s ease;
-            overflow-x: hidden;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Header Styles */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--border-dark);
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo {
-            height: 50px;
-            width: 50px;
-            background: var(--primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 20px;
-            color: white;
-            box-shadow: var(--primary-glow);
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--primary);
-            text-shadow: var(--primary-glow);
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 12px 20px;
-            border-radius: var(--radius);
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-icon {
-            width: 40px;
-            height: 40px;
-            padding: 0;
-            border-radius: 50%;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            box-shadow: var(--primary-glow);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(30, 64, 175, 0.8);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--text-light);
-            border: 1px solid var(--border-light);
-        }
-
-        .btn-secondary:hover {
-            background-color: rgba(30, 64, 175, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            font-weight: 800;
-            color: var(--primary);
-            text-shadow: var(--primary-glow);
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-
-        .player-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            background-color: var(--bg-card);
-            aspect-ratio: 16/9;
-            position: relative;
-            border: 1px solid var(--border-light);
-        }
-
-        #video-player {
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-card);
-        }
-
-        .player-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-dark) 100%);
-            color: var(--text-light);
-            font-size: 1.2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .thumbnail-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-        }
-
-        .thumbnail-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .placeholder-content {
-            text-align: center;
-            z-index: 2;
-            padding: 20px;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-            justify-content: center;
-        }
-
-        .play-btn {
-            padding: 16px 30px;
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        /* Access Key Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background-color: var(--bg-card);
-            padding: 35px;
-            border-radius: var(--radius);
-            max-width: 450px;
-            width: 90%;
-            text-align: center;
-            box-shadow: var(--shadow);
-            border-top: 3px solid var(--primary);
-        }
-
-        .modal h2 {
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-
-        .modal p {
-            margin-bottom: 25px;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        .key-input {
-            width: 100%;
-            padding: 15px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border-light);
-            font-size: 1rem;
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--text-light);
-            margin-bottom: 20px;
-            text-align: center;
-            letter-spacing: 2px;
-            font-weight: 600;
-        }
-
-        .key-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.2);
-        }
-
-        .modal-actions {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-top: 15px;
-            color: var(--text-muted);
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
-
-        /* Features Section */
-        .features {
-            margin: 60px 0;
+        
+        .cricket-icon {
+            position: absolute;
+            opacity: 0.08;
+            z-index: 0;
+            font-size: 40vw;
+            animation: float 15s infinite ease-in-out;
         }
-
-        .features h2 {
+        
+        .cricket-icon.bat-ball {
+            top: 10%;
+            right: 10%;
+            transform: rotate(25deg);
+        }
+        
+        .cricket-icon.stumps {
+            bottom: 5%;
+            left: 10%;
+            transform: rotate(-15deg);
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
             text-align: center;
-            margin-bottom: 40px;
-            font-size: 2rem;
-            color: var(--primary);
-            text-shadow: var(--primary-glow);
+            z-index: 10;
+            position: relative;
         }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-
-        .feature-card {
-            background-color: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 25px 20px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-top: 3px solid var(--primary);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
+        
+        .header {
             margin-bottom: 20px;
-            color: var(--primary);
-            text-shadow: var(--primary-glow);
+            animation: fadeInDown 1.5s ease-out;
         }
-
-        .feature-card h3 {
+        
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
             margin-bottom: 15px;
-            font-size: 1.2rem;
-            color: var(--primary);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            color: #fff;
         }
-
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Server Status */
-        .server-status {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
-            padding: 12px;
-            border-radius: var(--radius);
-            background-color: rgba(30, 64, 175, 0.1);
+        
+        .header p {
+            font-size: 1.4rem;
             font-weight: 500;
-            max-width: 300px;
-            margin: 20px auto;
+            opacity: 0.9;
         }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
+        
+        .thank-you-card {
+            background: rgba(0, 13, 35, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: scaleIn 1.2s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .thank-you-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #00b4db, #0083b0);
+        }
+        
+        .thank-you-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .thank-you-card .highlight {
+            color: #00b4db;
+            font-weight: 600;
+        }
+        
+        .pulse {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #ff4d4d;
             border-radius: 50%;
             margin-right: 10px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 0 rgba(255, 77, 77, 0.4);
         }
-
-        .status-dot.connected {
-            background-color: #10B981;
-            box-shadow: 0 0 8px #10B981;
-        }
-
-        .status-dot.connecting {
-            background-color: #F59E0B;
-            box-shadow: 0 0 8px #F59E0B;
-            animation: pulse 1.5s infinite;
-        }
-
-        .status-dot.error {
-            background-color: #EF4444;
-            box-shadow: 0 0 8px #EF4444;
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s ease-in-out infinite;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-top: -20px;
-            margin-left: -20px;
-            display: none;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.7; }
-            100% { opacity: 1; }
-        }
-
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--bg-card);
-            color: var(--text-light);
-            padding: 14px 28px;
-            border-radius: 30px;
-            box-shadow: var(--shadow);
-            z-index: 1000;
-            display: none;
-            font-weight: 500;
-            border: 1px solid var(--border-light);
-        }
-
-        .toast.error {
-            background-color: rgba(244, 67, 54, 0.2);
-            border-color: rgba(244, 67, 54, 0.5);
-        }
-
-        .toast.success {
-            background-color: rgba(76, 175, 80, 0.2);
-            border-color: rgba(76, 175, 80, 0.5);
-        }
-
-        /* Footer */
+        
         footer {
+            margin-top: 30px;
+            padding: 20px;
             text-align: center;
-            padding: 30px 0;
-            margin-top: 60px;
-            border-top: 1px solid var(--border-dark);
-        }
-
-        footer p {
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-
-        .developer {
-            margin-top: 10px;
             font-size: 0.9rem;
-            color: var(--primary);
-            font-weight: 500;
+            opacity: 0.7;
+            animation: fadeInUp 1.5s ease-out;
         }
-
+        
+        .offline-note {
+            margin-top: 10px;
+            font-style: italic;
+            color: #ff4d4d;
+        }
+        
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(25deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(25deg);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(255, 77, 77, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 77, 77, 0);
+            }
+        }
+        
+        .stadium-lights {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        .light {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            opacity: 0;
+            animation: flicker 8s infinite;
+        }
+        
+        .light:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        
+        .light:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+        
+        .light:nth-child(3) {
+            bottom: 15%;
+            left: 25%;
+            animation-delay: 2s;
+        }
+        
+        .light:nth-child(4) {
+            bottom: 25%;
+            right: 20%;
+            animation-delay: 3s;
+        }
+        
+        @keyframes flicker {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
+            .header h1 {
+                font-size: 2.2rem;
             }
             
-            .features-grid {
-                grid-template-columns: 1fr;
+            .header p {
+                font-size: 1.2rem;
             }
             
-            .header-actions {
-                gap: 10px;
-            }
-            
-            .feature-card {
-                padding: 20px 15px;
-            }
-            
-            .logo {
-                height: 40px;
-                width: 40px;
-                font-size: 16px;
-            }
-            
-            .logo-text {
-                font-size: 20px;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-            }
-            
-            .share-components {
-                bottom: 70px;
-                right: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo-container {
-                flex-direction: column;
-                gap: 5px;
-                align-items: flex-start;
-            }
-            
-            .logo-text {
-                font-size: 18px;
-            }
-            
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .modal-content {
+            .thank-you-card {
                 padding: 25px;
             }
             
-            .share-components {
-                flex-direction: row;
-                bottom: 70px;
-                right: 50%;
-                transform: translateX(50%);
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
-            }
-            
-            .share-btn {
-                width: 45px;
-                height: 45px;
+            .thank-you-card p {
                 font-size: 1rem;
             }
-        }
-
-        /* HD Quality Badge */
-        .hd-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            z-index: 5;
-        }
-
-        /* Watch Counter Badge */
-        .watching-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            z-index: 5;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            animation: watching-pulse 2s infinite;
-        }
-
-        .watching-badge .live-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #FF0000;
-            border-radius: 50%;
-            display: inline-block;
-            animation: live-pulse 1.5s infinite;
-        }
-
-        @keyframes watching-pulse {
-            0% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
-            50% { box-shadow: 0 4px 16px rgba(220, 38, 38, 0.4); }
-            100% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
-        }
-
-        @keyframes live-pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        /* Share Components */
-        .share-components {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 100;
-        }
-
-        .share-btn {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--bg-card);
-            color: var(--primary);
-            box-shadow: var(--shadow);
-            cursor: pointer;
-            transition: transform 0.2s;
-            font-size: 1.2rem;
-            border: 1px solid var(--border-dark);
-        }
-
-        .share-btn:hover {
-            transform: scale(1.15);
-            box-shadow: var(--primary-glow);
-        }
-
-        .share-btn.whatsapp {
-            color: #25D366;
-        }
-
-        .share-btn.telegram {
-            color: #0088CC;
-        }
-
-        .share-btn.copy {
-            color: var(--primary);
+            
+            .cricket-icon {
+                font-size: 50vw;
+            }
         }
         
-        /* Developer Tools Warning */
-        .devtools-warning {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-darker);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 20px;
-            display: none;
-        }
-        
-        .warning-icon {
-            font-size: 4rem;
-            color: var(--secondary);
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-        
-        .devtools-warning h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--secondary);
-        }
-        
-        .devtools-warning p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 600px;
-            color: var(--text-light);
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .thank-you-card {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="devtools-warning" id="devtools-warning">
-        <div class="warning-icon">
-            <i class="fas fa-exclamation-triangle"></i>
-        </div>
-        <h2>Developer Tools Detected</h2>
-        <p>This website is protected against inspection. Please close developer tools to continue using Cricket Live Streaming.</p>
-        <button class="btn btn-primary" onclick="location.reload()">
-            <i class="fas fa-redo"></i> Reload Page
-        </button>
+    <!-- Stadium lights effect -->
+    <div class="stadium-lights">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
     </div>
-
+    
+    <!-- Cricket icons in background -->
+    <i class="cricket-icon bat-ball fas fa-baseball-ball"></i>
+    <i class="cricket-icon stumps fas fa-times"></i>
+    
     <div class="container">
-        <header>
-            <div class="logo-container">
-                <div class="logo">CL</div>
-                <div class="logo-text">Cricket Live</div>
-            </div>
-            <div class="header-actions">
-                <button class="btn btn-icon btn-secondary" id="theme-toggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
+        <header class="header">
+            <h1>🚨 Cricket Liv – Official Closure Announcement 🚨</h1>
+            <p>"All matches have ended, and we are closing our servers permanently."</p>
         </header>
-
-        <section class="hero">
-            <h1>Live Cricket Streaming</h1>
-            <p>Watch live cricket matches from around the world with premium streaming quality and no interruptions.</p>
-            
-            <div class="player-container">
-                <div id="video-player">
-                    <div class="player-placeholder">
-                        <img src="https://i.ibb.co/C3KVW8SH/Picsart-25-09-14-18-43-13-368.webp" alt="Cricket Match Preview" class="thumbnail-image">
-                        <div class="thumbnail-overlay">
-                            <div class="placeholder-content">
-                                <i class="fas fa-lock" style="font-size: 3rem; margin-bottom: 20px; color: var(--primary);"></i>
-                                <p>Enter access key to watch live streaming</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="spinner" id="loading-spinner"></div>
-                <div class="hd-badge">
-                    <i class="fas fa-hd"></i> HD
-                </div>
-                <div class="watching-badge" id="watching-badge">
-                    <span class="live-dot"></span>
-                    <span id="watching-count">50 Lakhs+ Watching</span>
-                </div>
-            </div>
-
-            <div class="action-buttons">
-                <button class="btn btn-primary play-btn" id="play-btn">
-                    <i class="fas fa-play"></i> Watch Live
-                </button>
-                <button class="btn btn-secondary" id="reset-btn">
-                    <i class="fas fa-redo"></i> Reset
-                </button>
-            </div>
-            
-            <div class="server-status" id="server-status">
-                <div class="status-dot" id="status-dot"></div>
-                <span id="status-text">Enter access key to start streaming</span>
-            </div>
-        </section>
-
-        <section class="features">
-            <h2>Premium Streaming Features</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-hd"></i>
-                    </div>
-                    <h3>Ultra HD Quality</h3>
-                    <p>Enjoy crystal clear 4K streaming with adaptive bitrate technology</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Low Latency</h3>
-                    <p>Real-time streaming with minimal delay for live action</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Secure Connection</h3>
-                    <p>Encrypted streams for your privacy and security</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Multi-Device</h3>
-                    <p>Watch on your phone, tablet, or computer seamlessly</p>
-                </div>
-            </div>
-        </section>
+        
+        <div class="thank-you-card">
+            <p>Dear Users,</p>
+            <p>We sincerely thank you for your incredible support and love throughout this journey. Cricket Liv was built to bring live cricket action to your screens, and your trust made it possible.</p>
+            <p>As all tournaments and matches have come to an end, we are shutting down our servers permanently.</p>
+            <p>Stay connected with us for future updates. Until then, <span class="highlight">THANK YOU</span> for being a part of Cricket Liv.</p>
+        </div>
+        
+        <footer>
+            <p>© Cricket Liv | All Rights Reserved</p>
+            <p class="offline-note"><span class="pulse"></span>This server is now offline.</p>
+        </footer>
     </div>
-
-    <!-- Social Media Share Buttons - Only WhatsApp and Telegram remain -->
-    <div class="share-components">
-        <div class="share-btn whatsapp" id="whatsapp-share">
-            <i class="fab fa-whatsapp"></i>
-        </div>
-        <div class="share-btn telegram" id="telegram-share">
-            <i class="fab fa-telegram"></i>
-        </div>
-        <div class="share-btn copy" id="copy-link">
-            <i class="fas fa-link"></i>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2023 Cricket Live Streaming. Premium access required.</p>
-        <p class="developer">Website Developed By Murli Kumar</p>
-    </footer>
-
-    <!-- Access Key Modal -->
-    <div class="modal" id="access-key-modal">
-        <div class="modal-content">
-            <h2>Enter Access Key</h2>
-            <p>You need a valid access key to watch live streaming content. Please enter Your  access key.</p>
-            
-            <input type="password" class="key-input" id="access-key-input" placeholder="Enter your access key">
-            
-            <div class="modal-actions">
-                <button class="btn btn-primary" id="submit-key">
-                    <i class="fas fa-key"></i> Submit Key
-                </button>
-                <button class="btn btn-secondary" id="close-modal">Cancel</button>
-            </div>
-            
-            <div class="checkbox-group">
-                <input type="checkbox" id="remember-key">
-                <label for="remember-key">Remember key on this device</label>
-            </div>
-        </div>
-    </div>
-
-    <div class="toast" id="toast"></div>
 
     <script>
-        // DOM Elements
-        const accessKeyModal = document.getElementById('access-key-modal');
-        const accessKeyInput = document.getElementById('access-key-input');
-        const submitKeyBtn = document.getElementById('submit-key');
-        const closeModalBtn = document.getElementById('close-modal');
-        const rememberKeyCheckbox = document.getElementById('remember-key');
-        const playBtn = document.getElementById('play-btn');
-        const resetBtn = document.getElementById('reset-btn');
-        const themeToggle = document.getElementById('theme-toggle');
-        const statusDot = document.getElementById('status-dot');
-        const statusText = document.getElementById('status-text');
-        const toast = document.getElementById('toast');
-        const devtoolsWarning = document.getElementById('devtools-warning');
-        const watchingBadge = document.getElementById('watching-badge');
-        const watchingCount = document.getElementById('watching-count');
-        let spinner = document.getElementById('loading-spinner');
-        
-        // Valid access key
-        const VALID_ACCESS_KEY = "Murli Kumar";
-        
-        // Video URL (hidden from user)
-        const VIDEO_URL = "https://tataplay.slivcdn.com/hls/live/2020591-b/TEN3HD/hdntl=exp=1750582085~acl=%2f*~id=9e40d10a-ddc8-413e-8bad-fc250d39a4c7~data=hdntl~hmac=8a461045379b43fb696b19ba5f49f38d5017755a198550f54e5d47ecd4b974ae/master_3500.m3u8";
-        
-        // Developer tools detection
-        function detectDevTools() {
-            const widthThreshold = window.outerWidth - window.innerWidth > 100;
-            const heightThreshold = window.outerHeight - window.innerHeight > 100;
-            const orientation = widthThreshold ? 'vertical' : 'horizontal';
+        // Simple animations for elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.header, .thank-you-card, footer');
             
-            if (!((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || widthThreshold || heightThreshold)) {
-                return false;
-            }
+            elements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 0.3}s`;
+            });
             
-            // Show warning and block interaction
-            devtoolsWarning.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-            return true;
-        }
-        
-        // Check for devtools periodically
-        setInterval(detectDevTools, 1000);
-        
-        // Disable right-click menu
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            showToast('Right-click is disabled on this page', 'error');
+            // Simulate a fading stadium light effect
+            setInterval(() => {
+                const lights = document.querySelectorAll('.light');
+                lights.forEach(light => {
+                    light.style.opacity = Math.random() * 0.3;
+                });
+            }, 2000);
         });
-        
-        // Disable keyboard shortcuts for devtools
-        document.addEventListener('keydown', function(e) {
-            // Disable F12
-            if (e.key === 'F12') {
-                e.preventDefault();
-                showToast('Developer tools are disabled on this page', 'error');
-            }
-            
-            // Disable Ctrl+Shift+I
-            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-                e.preventDefault();
-                showToast('Developer tools are disabled on this page', 'error');
-            }
-            
-            // Disable Ctrl+Shift+J
-            if (e.ctrlKey && e.shiftKey && e.key === 'J') {
-                e.preventDefault();
-                showToast('Developer tools are disabled on this page', 'error');
-            }
-            
-            // Disable Ctrl+U
-            if (e.ctrlKey && e.key === 'u') {
-                e.preventDefault();
-                showToast('Viewing page source is disabled', 'error');
-            }
-        });
-        
-        // Check if access key is already stored
-        function checkStoredAccessKey() {
-            const storedKey = localStorage.getItem('cricketAccessKey');
-            if (storedKey === VALID_ACCESS_KEY) {
-                return true;
-            }
-            return false;
-        }
-        
-        // Show modal function
-        function showAccessKeyModal() {
-            accessKeyModal.style.display = 'flex';
-            accessKeyInput.focus();
-        }
-        
-        // Hide modal function
-        function hideAccessKeyModal() {
-            accessKeyModal.style.display = 'none';
-            accessKeyInput.value = '';
-        }
-        
-        // Validate access key
-        function validateAccessKey(key) {
-            return key === VALID_ACCESS_KEY;
-        }
-        
-        // Update server status
-        function updateServerStatus(status, text) {
-            statusDot.className = 'status-dot ' + status;
-            statusText.textContent = text;
-        }
-        
-        // Show toast message
-        function showToast(message, type = '') {
-            toast.textContent = message;
-            toast.className = 'toast ' + type;
-            toast.style.display = 'block';
-            
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 3000);
-        }
-        
-        // Show loading spinner
-        function showLoadingSpinner(show) {
-            spinner.style.display = show ? 'block' : 'none';
-        }
-        
-        // Update watching counter with random fluctuation
-        function updateWatchingCounter() {
-            const baseCount = 5000000; // 50 lakhs
-            const randomFactor = Math.random() * 0.2 + 0.9; // Between 0.9 and 1.1
-            const currentCount = Math.floor(baseCount * randomFactor);
-            
-            // Format the number with commas (Indian numbering system)
-            const formattedCount = new Intl.NumberFormat('en-IN').format(currentCount);
-            watchingCount.textContent = `${formattedCount}+ Watching`;
-            
-            // Schedule next update (every 5-10 seconds)
-            setTimeout(updateWatchingCounter, 5000 + Math.random() * 5000);
-        }
-        
-        // Play video function
-        function playVideo() {
-            if (checkStoredAccessKey()) {
-                // Access key is valid, play the video
-                showLoadingSpinner(true);
-                updateServerStatus('connecting', 'Connecting to SonyLIV server...');
-                
-                // Simulate connection delay
-                setTimeout(() => {
-                    const playerContainer = document.getElementById('video-player');
-                    playerContainer.innerHTML = `
-                        <video id="main-video" controls autoplay style="width: 100%; height: 100%;">
-                            <source src="${VIDEO_URL}" type="application/x-mpegURL">
-                            Your browser does not support the video tag.
-                        </video>
-                    `;
-                    
-                    // Add back the watching badge and HD badge
-                    playerContainer.appendChild(watchingBadge);
-                    const hdBadge = document.createElement('div');
-                    hdBadge.className = 'hd-badge';
-                    hdBadge.innerHTML = '<i class="fas fa-hd"></i> HD';
-                    playerContainer.appendChild(hdBadge);
-                    
-                    // Add back the spinner
-                    const newSpinner = document.createElement('div');
-                    newSpinner.className = 'spinner';
-                    newSpinner.id = 'loading-spinner';
-                    newSpinner.style.display = 'none';
-                    playerContainer.appendChild(newSpinner);
-                    spinner = newSpinner;
-                    
-                    const video = document.getElementById('main-video');
-                    
-                    video.addEventListener('canplay', () => {
-                        showLoadingSpinner(false);
-                        updateServerStatus('connected', 'Connected to SonyLIV server');
-                        video.play().catch(e => {
-                            showToast('Autoplay blocked. Click play to start video.', 'error');
-                        });
-                    });
-                    
-                    video.addEventListener('error', () => {
-                        showLoadingSpinner(false);
-                        updateServerStatus('error', 'Connection failed');
-                        showToast('Error loading video. Please try again.', 'error');
-                    });
-                }, 2000);
-            } else {
-                // Show access key modal
-                showAccessKeyModal();
-            }
-        }
-        
-        // Reset player function
-        function resetPlayer() {
-            const playerContainer = document.getElementById('video-player');
-            playerContainer.innerHTML = `
-                <div class="player-placeholder">
-                    <img src="https://i.ibb.co/C3KVW8SH/Picsart-25-09-14-18-43-13-368.webp" alt="Cricket Match Preview" class="thumbnail-image">
-                    <div class="thumbnail-overlay">
-                        <div class="placeholder-content">
-                            <i class="fas fa-lock" style="font-size: 3rem; margin-bottom: 20px; color: var(--primary);"></i>
-                            <p>Enter access key to watch live streaming</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Add HD badge back
-            const hdBadge = document.createElement('div');
-            hdBadge.className = 'hd-badge';
-            hdBadge.innerHTML = '<i class="fas fa-hd"></i> HD';
-            playerContainer.appendChild(hdBadge);
-            
-            // Add watching badge back
-            playerContainer.appendChild(watchingBadge);
-            
-            // Add spinner back
-            const newSpinner = document.createElement('div');
-            newSpinner.className = 'spinner';
-            newSpinner.id = 'loading-spinner';
-            newSpinner.style.display = 'none';
-            playerContainer.appendChild(newSpinner);
-            spinner = newSpinner;
-            
-            // Clear stored access key
-            localStorage.removeItem('cricketAccessKey');
-            sessionStorage.removeItem('cricketAccessKey');
-            
-            // Reset server status
-            updateServerStatus('', 'Enter access key to start streaming');
-            
-            showToast('Player has been reset', 'success');
-        }
-        
-        // Toggle theme function
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-            const icon = themeToggle.querySelector('i');
-            
-            if (document.body.classList.contains('light-mode')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-                localStorage.setItem('theme', 'light');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-        
-        // Initialize theme from localStorage
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const icon = themeToggle.querySelector('i');
-            
-            if (savedTheme === 'light') {
-                document.body.classList.add('light-mode');
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                document.body.classList.remove('light-mode');
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            }
-        }
-        
-        // Share on social media
-        function shareOnPlatform(platform) {
-            const pageUrl = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('Watch live cricket streaming on Cricket Live!');
-            let shareUrl = '';
-            
-            switch(platform) {
-                case 'whatsapp':
-                    shareUrl = `https://api.whatsapp.com/send?text=${text}%20${pageUrl}`;
-                    break;
-                case 'telegram':
-                    shareUrl = `https://t.me/share/url?url=${pageUrl}&text=${text}`;
-                    break;
-                case 'copy':
-                    navigator.clipboard.writeText(window.location.href).then(() => {
-                        showToast('Link copied to clipboard!');
-                    }).catch(err => {
-                        // Fallback method for copying
-                        const tempInput = document.createElement('input');
-                        tempInput.value = window.location.href;
-                        document.body.appendChild(tempInput);
-                        tempInput.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(tempInput);
-                        showToast('Link copied to clipboard!');
-                    });
-                    return;
-            }
-            
-            if (shareUrl) {
-                window.open(shareUrl, '_blank');
-            }
-        }
-        
-        // Event Listeners
-        playBtn.addEventListener('click', playVideo);
-        
-        resetBtn.addEventListener('click', resetBtnHandler);
-        
-        function resetBtnHandler() {
-            resetPlayer();
-            // Clear the remember key option
-            rememberKeyCheckbox.checked = false;
-        }
-        
-        submitKeyBtn.addEventListener('click', submitKeyHandler);
-        
-        function submitKeyHandler() {
-            const key = accessKeyInput.value.trim();
-            
-            if (validateAccessKey(key)) {
-                // Save key if remember me is checked
-                if (rememberKeyCheckbox.checked) {
-                    localStorage.setItem('cricketAccessKey', key);
-                } else {
-                    // Store in sessionStorage for this session only
-                    sessionStorage.setItem('cricketAccessKey', key);
-                }
-                
-                hideAccessKeyModal();
-                showToast('Access granted! Enjoy the stream.', 'success');
-                
-                // Play the video after a short delay
-                setTimeout(playVideo, 1000);
-            } else {
-                showToast('Invalid access key. Please try again.', 'error');
-                accessKeyInput.value = '';
-                accessKeyInput.focus();
-            }
-        }
-        
-        closeModalBtn.addEventListener('click', hideAccessKeyModal);
-        
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === accessKeyModal) {
-                hideAccessKeyModal();
-            }
-        });
-        
-        // Allow submitting with Enter key
-        accessKeyInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                submitKeyHandler();
-            }
-        });
-        
-        // Theme toggle functionality
-        themeToggle.addEventListener('click', toggleTheme);
-        
-        // Social media share buttons - only WhatsApp and Telegram remain
-        document.getElementById('whatsapp-share').addEventListener('click', () => shareOnPlatform('whatsapp'));
-        document.getElementById('telegram-share').addEventListener('click', () => shareOnPlatform('telegram'));
-        document.getElementById('copy-link').addEventListener('click', () => shareOnPlatform('copy'));
-        
-        // Check session storage for access key
-        function checkSessionAccessKey() {
-            const sessionKey = sessionStorage.getItem('cricketAccessKey');
-            if (sessionKey === VALID_ACCESS_KEY) {
-                return true;
-            }
-            return false;
-        }
-        
-        // Initialize
-        initTheme();
-        
-        // Check if we have a valid access key in storage
-        if (checkStoredAccessKey() || checkSessionAccessKey()) {
-            updateServerStatus('', 'Ready to stream');
-        }
-        
-        // Start the watching counter animation
-        updateWatchingCounter();
-        
-        // Initial devtools check
-        detectDevTools();
     </script>
 </body>
 </html>
