@@ -193,6 +193,7 @@
             color: var(--text-light);
             font-size: 1.2rem;
             position: relative;
+            cursor: pointer;
         }
 
         .thumbnail-preview {
@@ -210,10 +211,36 @@
             bottom: 0;
             background: rgba(0, 0, 0, 0.5);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .thumbnail-overlay:hover {
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .play-button-large {
+            font-size: 5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(0, 224, 161, 0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnail-overlay:hover .play-button-large {
+            transform: scale(1.1);
+        }
+
+        .play-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 8px 20px;
+            border-radius: 30px;
         }
 
         /* Resources Section */
@@ -809,38 +836,6 @@
             padding: 12px 20px;
         }
 
-        /* Notification Permission Modal */
-        .notification-modal-content {
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-darker) 100%);
-            padding: 40px;
-            border-radius: var(--radius);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--border-light);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .notification-modal-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), #FFD700);
-        }
-
-        .notification-icon {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            color: #FFD700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
-            animation: float 3s ease-in-out infinite;
-        }
-
         /* Thumbnail Preview Styles */
         .thumbnail-preview-container {
             display: none;
@@ -968,6 +963,10 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            .play-button-large {
+                font-size: 4rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1013,6 +1012,14 @@
 
             .thumbnail-actions {
                 flex-direction: column;
+            }
+
+            .play-button-large {
+                font-size: 3rem;
+            }
+
+            .play-text {
+                font-size: 1rem;
             }
         }
 
@@ -1322,24 +1329,6 @@
             color: var(--primary);
         }
 
-        /* Notification Button */
-        .notification-btn.active {
-            background-color: rgba(255, 215, 0, 0.2);
-            border-color: #FFD700;
-            color: #FFD700;
-        }
-
-        .notification-btn.active i {
-            color: #FFD700;
-            animation: bellRing 0.5s ease-in-out;
-        }
-
-        @keyframes bellRing {
-            0%, 100% { transform: rotate(0); }
-            25% { transform: rotate(15deg); }
-            75% { transform: rotate(-15deg); }
-        }
-
         /* Thumbnail Input Container */
         .thumbnail-input-container {
             position: relative;
@@ -1400,9 +1389,6 @@
                 <button class="btn btn-icon btn-secondary edit-lock-btn" id="edit-lock-btn" title="Unlock Editing">
                     <i class="fas fa-lock"></i>
                 </button>
-                <button class="btn btn-icon btn-secondary notification-btn" id="notification-btn" title="Enable Notifications">
-                    <i class="fas fa-bell"></i>
-                </button>
                 <button class="btn btn-icon btn-secondary" id="share-btn">
                     <i class="fas fa-share-alt"></i>
                 </button>
@@ -1424,10 +1410,11 @@
 
             <div class="player-container" data-aos="fade-up" data-aos-delay="200">
                 <div id="video-player">
-                    <div class="player-placeholder">
+                    <div class="player-placeholder" id="player-placeholder">
                         <img src="" alt="Thumbnail Preview" class="thumbnail-preview" id="thumbnail-preview">
                         <div class="thumbnail-overlay">
-                            <i class="fas fa-play-circle"></i>
+                            <i class="fas fa-play-circle play-button-large"></i>
+                            <div class="play-text">Click to Play Video</div>
                         </div>
                     </div>
                 </div>
@@ -1800,31 +1787,6 @@
         </div>
     </div>
 
-    <!-- Notification Permission Modal -->
-    <div class="modal" id="notification-modal">
-        <div class="notification-modal-content">
-            <div class="notification-icon">
-                <i class="fas fa-bell"></i>
-            </div>
-            <h2>Enable Smart Notifications</h2>
-            <p>Get automatic reminders every 5 minutes when new lectures, notes, or DPPs are uploaded. Notifications will pause when you're watching a lecture.</p>
-            
-            <div class="modal-actions">
-                <button class="btn btn-primary" id="allow-notifications">
-                    <i class="fas fa-check"></i> Enable Notifications
-                </button>
-                <button class="btn btn-secondary" id="skip-notifications">
-                    Maybe Later
-                </button>
-            </div>
-            
-            <div class="checkbox-group">
-                <input type="checkbox" id="dont-show-notification-modal">
-                <label for="dont-show-notification-modal">Don't show this again</label>
-            </div>
-        </div>
-    </div>
-
     <!-- Telegram Modal -->
     <div class="modal" id="telegram-modal">
         <div class="modal-content">
@@ -1958,9 +1920,6 @@
             // Load thumbnail from localStorage if exists
             loadThumbnail();
 
-            // Initialize notification system
-            initializeNotificationSystem();
-
             // Theme toggle functionality
             const themeToggle = document.getElementById('theme-toggle');
             themeToggle.addEventListener('click', () => {
@@ -1978,13 +1937,17 @@
             const dppParam = urlParams.get('dpp');
             const thumbParam = urlParams.get('thumb');
 
+            // Set video URL from parameters (but don't auto-play)
             if (playParam) {
                 try {
                     const videoId = atob(playParam);
                     document.getElementById('video-url').value = videoId;
-                    setTimeout(() => playVideo(videoId), 1000);
-                    // Notify about lecture upload
-                    notifyUpload('lecture', videoId);
+                    
+                    // Update share URL
+                    updateShareUrl();
+                    
+                    // Show toast message
+                    showToast('Video URL loaded. Click Play to start watching.', 'info');
                 } catch (e) {
                     console.error("Error decoding video parameter:", e);
                     showToast('Invalid video parameter', 'error');
@@ -1997,9 +1960,7 @@
                     document.getElementById('notes-url').value = notesUrl;
                     setTimeout(() => {
                         handleNotesAdded(notesUrl);
-                        showToast('Notes loaded from shared link', 'success');
-                        // Notify about notes upload
-                        notifyUpload('notes', notesUrl);
+                        showToast('Notes loaded successfully', 'success');
                     }, 1200);
                 } catch (e) {
                     console.error("Error decoding notes parameter:", e);
@@ -2012,9 +1973,7 @@
                     document.getElementById('dpp-url').value = dppUrl;
                     setTimeout(() => {
                         handleDPPAdded(dppUrl);
-                        showToast('DPP loaded from shared link', 'success');
-                        // Notify about DPP upload
-                        notifyUpload('dpp', dppUrl);
+                        showToast('DPP loaded successfully', 'success');
                     }, 1400);
                 } catch (e) {
                     console.error("Error decoding DPP parameter:", e);
@@ -2027,7 +1986,7 @@
                     document.getElementById('thumbnail-url').value = thumbUrl;
                     setTimeout(() => {
                         updateThumbnailPreview(thumbUrl);
-                        showToast('Thumbnail loaded from shared link', 'success');
+                        showToast('Thumbnail loaded successfully', 'success');
                     }, 1600);
                 } catch (e) {
                     console.error("Error decoding thumbnail parameter:", e);
@@ -2047,8 +2006,18 @@
                 const url = document.getElementById('video-url').value;
                 if (isValidUrl(url)) {
                     playVideo(url);
-                    // Notify about lecture upload
-                    notifyUpload('lecture', url);
+                } else if (url.trim()) {
+                    showToast('Please enter a valid URL', 'error');
+                } else {
+                    showToast('Please enter a video URL first', 'error');
+                }
+            });
+
+            // Click on thumbnail overlay to play
+            document.getElementById('player-placeholder').addEventListener('click', () => {
+                const url = document.getElementById('video-url').value;
+                if (isValidUrl(url)) {
+                    playVideo(url);
                 } else if (url.trim()) {
                     showToast('Please enter a valid URL', 'error');
                 } else {
@@ -2383,218 +2352,6 @@
             return imageExtensions.some(ext => lowerUrl.includes(ext));
         }
 
-        // NOTIFICATION SYSTEM FUNCTIONS
-        function initializeNotificationSystem() {
-            // Check if notifications are allowed
-            const notificationAllowed = localStorage.getItem('notificationAllowed') === 'true';
-            
-            // Update notification button state
-            const notificationBtn = document.getElementById('notification-btn');
-            if (notificationAllowed) {
-                notificationBtn.classList.add('active');
-                notificationBtn.title = 'Disable Notifications';
-            }
-            
-            // Add click event to notification button
-            notificationBtn.addEventListener('click', toggleNotifications);
-            
-            // Check if we should show notification permission modal
-            if (!notificationAllowed && !localStorage.getItem('dontShowNotificationModal') && 
-                !sessionStorage.getItem('notificationModalShown')) {
-                
-                setTimeout(() => {
-                    showNotificationPermissionModal();
-                }, 3000);
-            }
-            
-            // Set up the 5-minute interval checker
-            setInterval(() => {
-                checkAndSendNotification();
-            }, 60 * 1000); // Check every minute
-            
-            // Also check immediately on load
-            setTimeout(checkAndSendNotification, 5000);
-        }
-
-        function showNotificationPermissionModal() {
-            document.getElementById('notification-modal').style.display = 'flex';
-            sessionStorage.setItem('notificationModalShown', 'true');
-            
-            // Set up modal buttons
-            document.getElementById('allow-notifications').addEventListener('click', () => {
-                requestNotificationPermission();
-                document.getElementById('notification-modal').style.display = 'none';
-            });
-            
-            document.getElementById('skip-notifications').addEventListener('click', () => {
-                document.getElementById('notification-modal').style.display = 'none';
-            });
-            
-            document.getElementById('dont-show-notification-modal').addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    localStorage.setItem('dontShowNotificationModal', 'true');
-                } else {
-                    localStorage.removeItem('dontShowNotificationModal');
-                }
-            });
-        }
-
-        function toggleNotifications() {
-            const notificationAllowed = localStorage.getItem('notificationAllowed') === 'true';
-            const notificationBtn = document.getElementById('notification-btn');
-            
-            if (notificationAllowed) {
-                // Disable notifications
-                localStorage.setItem('notificationAllowed', 'false');
-                notificationBtn.classList.remove('active');
-                notificationBtn.title = 'Enable Notifications';
-                showToast('Notifications disabled', 'success');
-            } else {
-                // Enable notifications - show permission modal
-                showNotificationPermissionModal();
-            }
-        }
-
-        function requestNotificationPermission() {
-            if (!("Notification" in window)) {
-                showToast("This browser doesn't support notifications", "error");
-                return;
-            }
-            
-            if (Notification.permission === "granted") {
-                localStorage.setItem('notificationAllowed', 'true');
-                updateNotificationButtonState(true);
-                showToast("Notifications enabled!", "success");
-                // Send a welcome notification
-                sendLocalNotification("LEARNIX PLAYER", "Smart notifications are now active! You'll get reminders when new content is uploaded.");
-            } else if (Notification.permission !== "denied") {
-                Notification.requestPermission().then(function (permission) {
-                    if (permission === "granted") {
-                        localStorage.setItem('notificationAllowed', 'true');
-                        updateNotificationButtonState(true);
-                        showToast("Notifications enabled!", "success");
-                        // Send a welcome notification
-                        sendLocalNotification("LEARNIX PLAYER", "Smart notifications are now active! You'll get reminders when new content is uploaded.");
-                    } else {
-                        localStorage.setItem('notificationAllowed', 'false');
-                        updateNotificationButtonState(false);
-                        showToast("Notifications not allowed", "error");
-                    }
-                });
-            } else {
-                showToast("Notifications were previously denied. Please enable in browser settings.", "error");
-            }
-        }
-
-        function updateNotificationButtonState(enabled) {
-            const notificationBtn = document.getElementById('notification-btn');
-            if (enabled) {
-                notificationBtn.classList.add('active');
-                notificationBtn.title = 'Disable Notifications';
-            } else {
-                notificationBtn.classList.remove('active');
-                notificationBtn.title = 'Enable Notifications';
-            }
-        }
-
-        function checkAndSendNotification() {
-            const notificationAllowed = localStorage.getItem('notificationAllowed') === 'true';
-            if (!notificationAllowed) return;
-
-            // Do NOT send if video is currently playing
-            const videoPlaying = document.querySelector("video")?.currentTime > 2 && 
-                               !document.querySelector("video").paused;
-            
-            // Also check for YouTube iframe
-            const youtubeIframe = document.querySelector('iframe[src*="youtube"]');
-            const isYouTubePlaying = youtubeIframe ? true : false;
-            
-            if (videoPlaying || isYouTubePlaying) return;
-
-            const title = localStorage.getItem("lastUploadTitle");
-            const msg = localStorage.getItem("lastUploadMsg");
-            const url = localStorage.getItem("lastUploadUrl");
-            const lastTime = localStorage.getItem("lastUploadTime");
-            const lastNotificationTime = localStorage.getItem("lastNotificationTime") || 0;
-
-            if (!title || !msg || !url || !lastTime) return;
-
-            // Allow notification every 5 minutes (300,000 ms)
-            const now = Date.now();
-            const timeSinceLastNotification = now - lastNotificationTime;
-            
-            if (timeSinceLastNotification < 5 * 60 * 1000) return; // < 5 min skip
-
-            // Send notification
-            sendLocalNotification(title, msg, url);
-            
-            // Update last notification time
-            localStorage.setItem("lastNotificationTime", now);
-        }
-
-        function sendLocalNotification(title, message, url = null) {
-            if (!("Notification" in window)) return;
-            
-            if (Notification.permission === "granted") {
-                const options = {
-                    body: message,
-                    icon: 'https://i.supaimg.com/73f6e3b1-211e-4b7e-9eac-9881f90bc471.png',
-                    badge: 'https://i.supaimg.com/73f6e3b1-211e-4b7e-9eac-9881f90bc471.png',
-                    tag: 'learnix-player',
-                    requireInteraction: false,
-                    silent: false
-                };
-                
-                const notification = new Notification(title, options);
-                
-                notification.onclick = function() {
-                    window.focus();
-                    if (url) {
-                        window.open(url, '_blank');
-                    }
-                    notification.close();
-                };
-                
-                // Auto close after 10 seconds
-                setTimeout(() => {
-                    notification.close();
-                }, 10000);
-                
-                return notification;
-            }
-        }
-
-        function notifyUpload(type, contentUrl = null) {
-            let title = "";
-            let msg = "";
-
-            if (type === "lecture") {
-                title = "📺 New Lecture Uploaded";
-                msg = "Tap to watch the lecture!";
-            } else if (type === "notes") {
-                title = "📝 Notes Uploaded";
-                msg = "Tap to download Notes!";
-            } else if (type === "dpp") {
-                title = "📚 DPP Released";
-                msg = "Tap to solve now!";
-            }
-
-            const url = updateShareUrl();
-
-            // Save for auto notification
-            localStorage.setItem("lastUploadTitle", title);
-            localStorage.setItem("lastUploadMsg", msg);
-            localStorage.setItem("lastUploadUrl", url);
-            localStorage.setItem("lastUploadTime", Date.now());
-            localStorage.setItem("lastNotificationTime", 0); // Reset notification timer
-
-            // Send one notification instantly (if allowed)
-            const notificationAllowed = localStorage.getItem('notificationAllowed') === 'true';
-            if (notificationAllowed && Notification.permission === "granted") {
-                sendLocalNotification(title, msg, url);
-            }
-        }
-
         // Password protection functions
         function showPasswordModal() {
             document.getElementById('password-modal').style.display = 'flex';
@@ -2753,6 +2510,9 @@
             localStorage.setItem('lastVideo', url);
             updateShareUrl();
 
+            // Hide the thumbnail overlay when video starts playing
+            document.getElementById('player-placeholder').style.display = 'none';
+
             const youtubeId = getYouTubeId(url);
 
             if (youtubeId) {
@@ -2775,6 +2535,8 @@
                 player.addEventListener('error', () => {
                     showLoadingSpinner(false);
                     showToast('Error loading video. Please check the URL.', 'error');
+                    // Show placeholder again on error
+                    document.getElementById('player-placeholder').style.display = 'flex';
                 });
             }
         }
@@ -2820,15 +2582,29 @@
             // Hide thumbnail preview
             removeThumbnail();
 
+            // Reset player to show placeholder
             const playerContainer = document.getElementById('video-player');
             playerContainer.innerHTML = `
-                <div class="player-placeholder">
+                <div class="player-placeholder" id="player-placeholder">
                     <img src="" alt="Thumbnail Preview" class="thumbnail-preview" id="thumbnail-preview">
                     <div class="thumbnail-overlay">
-                        <i class="fas fa-play-circle"></i>
+                        <i class="fas fa-play-circle play-button-large"></i>
+                        <div class="play-text">Click to Play Video</div>
                     </div>
                 </div>
             `;
+
+            // Reattach click event to placeholder
+            document.getElementById('player-placeholder').addEventListener('click', () => {
+                const url = document.getElementById('video-url').value;
+                if (isValidUrl(url)) {
+                    playVideo(url);
+                } else if (url.trim()) {
+                    showToast('Please enter a valid URL', 'error');
+                } else {
+                    showToast('Please enter a video URL first', 'error');
+                }
+            });
 
             player = null;
             localStorage.removeItem('lastVideo');
@@ -2869,9 +2645,6 @@
 
             handleNotesAdded(notesUrl);
             showToast('Notes added successfully!', 'success');
-            
-            // Notify about notes upload
-            notifyUpload('notes', notesUrl);
         }
 
         function setupNotesViewButton(url) {
@@ -2905,9 +2678,6 @@
 
             handleDPPAdded(dppUrl);
             showToast('DPP added successfully!', 'success');
-            
-            // Notify about DPP upload
-            notifyUpload('dpp', dppUrl);
         }
 
         function downloadNotesPDF() {
@@ -3011,9 +2781,6 @@
                 const data = JSON.parse(session);
                 if (data.video) {
                     document.getElementById('video-url').value = data.video;
-                    if (isValidUrl(data.video)) {
-                        playVideo(data.video);
-                    }
                 }
                 if (data.notes) {
                     document.getElementById('notes-url').value = data.notes;
