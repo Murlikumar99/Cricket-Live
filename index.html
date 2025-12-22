@@ -25,6 +25,11 @@
             --border-dark: rgba(0, 224, 161, 0.1);
             --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             --radius: 16px;
+            --chat-bg: #0f172a;
+            --chat-message-user: #1e293b;
+            --chat-message-other: #334155;
+            --chat-header: #1e293b;
+            --admin-color: #FF9800;
         }
 
         :root.light-theme {
@@ -40,6 +45,11 @@
             --border-light: rgba(0, 184, 132, 0.3);
             --border-dark: rgba(0, 184, 132, 0.1);
             --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --chat-bg: #f8fafc;
+            --chat-message-user: #e2e8f0;
+            --chat-message-other: #f1f5f9;
+            --chat-header: #e2e8f0;
+            --admin-color: #FF5722;
         }
 
         * {
@@ -142,14 +152,43 @@
             transform: translateY(-2px);
         }
 
-        /* Premium Video Player Styles */
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            margin-bottom: 20px;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: var(--primary-glow);
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .player-chat-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         .player-container {
             width: 100%;
-            max-width: 900px;
-            margin: 0 auto 30px;
             border-radius: var(--radius);
             overflow: hidden;
-            box-shadow: var(--shadow), 0 20px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: var(--shadow);
             background-color: #000;
             aspect-ratio: 16/9;
             position: relative;
@@ -160,14 +199,6 @@
             width: 100%;
             height: 100%;
             background-color: #000;
-            position: relative;
-        }
-
-        #main-video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: none;
         }
 
         .player-placeholder {
@@ -230,242 +261,200 @@
             border-radius: 30px;
         }
 
-        /* Premium Video Controls */
-        .premium-video-player {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            background: #000;
-        }
-
-        .premium-controls {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            padding: 20px;
-            padding-top: 40px;
-            transition: opacity 0.3s ease;
-            opacity: 0;
-        }
-
-        .premium-video-player:hover .premium-controls {
-            opacity: 1;
-        }
-
-        .progress-container {
-            width: 100%;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 3px;
-            width: 0%;
-            transition: width 0.1s linear;
-            position: relative;
-        }
-
-        .progress-bar::after {
-            content: '';
-            position: absolute;
-            right: -6px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 12px;
-            height: 12px;
-            background: var(--primary);
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0, 224, 161, 0.8);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .progress-container:hover .progress-bar::after {
-            opacity: 1;
-        }
-
-        .control-bar {
+        /* Chat Container */
+        .chat-container {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            background: var(--chat-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            height: 400px;
+            width: 100%;
+        }
+
+        .chat-header {
+            background: var(--chat-header);
+            padding: 15px 20px;
+            display: flex;
             justify-content: space-between;
-            gap: 15px;
+            align-items: center;
+            border-bottom: 1px solid var(--border-dark);
         }
 
-        .left-controls, .right-controls {
+        .chat-header h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .control-btn {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-        }
-
-        .control-btn:hover {
-            background: rgba(0, 224, 161, 0.2);
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(0, 224, 161, 0.5);
-        }
-
-        .time-display {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.9);
-            font-family: 'Inter', monospace;
-        }
-
-        .volume-container {
+        .online-users {
             display: flex;
             align-items: center;
             gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
-        .volume-slider {
-            width: 80px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 2px;
-            cursor: pointer;
-            position: relative;
+        .online-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
         }
 
-        .volume-level {
-            height: 100%;
-            background: var(--primary);
-            border-radius: 2px;
-            width: 80%;
-        }
-
-        /* Premium Settings Menu */
-        .settings-menu {
-            position: relative;
-        }
-
-        .settings-dropdown {
-            position: absolute;
-            bottom: 50px;
-            right: 0;
-            background: rgba(19, 28, 63, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            padding: 15px;
-            min-width: 180px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            display: none;
-            z-index: 100;
-        }
-
-        .settings-menu:hover .settings-dropdown {
-            display: block;
-        }
-
-        .settings-option {
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            display: flex;
+            flex-direction: column;
+            max-width: 80%;
+            animation: messageIn 0.3s ease-out;
+        }
+
+        @keyframes messageIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-user {
+            align-self: flex-end;
+        }
+
+        .message-other {
+            align-self: flex-start;
+        }
+
+        .message-bubble {
+            padding: 12px 15px;
+            border-radius: 18px;
+            position: relative;
+            word-wrap: break-word;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .message-user .message-bubble {
+            background: var(--chat-message-user);
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-other .message-bubble {
+            background: var(--chat-message-other);
+            border-bottom-left-radius: 5px;
+        }
+
+        .message-info {
+            display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
-        }
-
-        .settings-option:hover {
-            background: rgba(0, 224, 161, 0.1);
-        }
-
-        .settings-option:last-child {
-            margin-bottom: 0;
-        }
-
-        .quality-option {
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin-bottom: 3px;
-        }
-
-        .quality-option:hover {
-            background: rgba(0, 224, 161, 0.1);
-        }
-
-        .quality-option.active {
-            background: var(--primary);
-            color: var(--bg-darker);
-            font-weight: 600;
-        }
-
-        /* Fullscreen mode */
-        .premium-video-player.fullscreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 9999;
-            background: #000;
-        }
-
-        .premium-video-player.fullscreen .premium-controls {
-            padding: 30px;
-            padding-top: 60px;
-        }
-
-        /* YouTube Badge */
-        .youtube-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(255, 0, 0, 0.9);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 4px;
+            align-items: center;
+            margin-top: 5px;
             font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .message-user .message-info {
+            flex-direction: row-reverse;
+        }
+
+        .message-sender {
             font-weight: 600;
+            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 5px;
-            z-index: 10;
         }
 
-        .live-indicator {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            background: rgba(255, 0, 0, 0.9);
-            padding: 2px 8px;
-            border-radius: 3px;
+        .admin-badge {
+            background: var(--admin-color);
+            color: white;
             font-size: 0.7rem;
-            animation: pulse 1.5s infinite;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
         }
 
-        .live-dot {
-            width: 6px;
-            height: 6px;
-            background: white;
-            border-radius: 50%;
+        .message-time {
+            opacity: 0.7;
+        }
+
+        .chat-input-container {
+            padding: 15px;
+            border-top: 1px solid var(--border-dark);
+            background: var(--chat-header);
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-light);
+            background: var(--bg-card);
+            color: var(--text-light);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 224, 161, 0.2);
+        }
+
+        .send-btn {
+            padding: 12px 20px;
+            min-width: 60px;
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .chat-welcome {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+
+        .chat-welcome i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            opacity: 0.5;
+        }
+
+        .chat-notification {
+            background: rgba(0, 224, 161, 0.1);
+            border: 1px solid var(--border-light);
+            padding: 10px 15px;
+            border-radius: var(--radius);
+            text-align: center;
+            margin: 10px 20px;
+            font-size: 0.9rem;
+            color: var(--primary);
         }
 
         /* Resources Section */
@@ -1089,6 +1078,56 @@
             margin-top: 10px;
         }
 
+        /* Username Modal */
+        .username-modal-content {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-darker) 100%);
+            padding: 40px;
+            border-radius: var(--radius);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .username-modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .username-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-shadow: var(--primary-glow);
+        }
+
+        .username-input {
+            width: 100%;
+            padding: 16px 20px;
+            margin: 25px 0;
+            border-radius: var(--radius);
+            border: 2px solid var(--border-light);
+            font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+        }
+
+        .username-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 224, 161, 0.2);
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .container {
@@ -1192,20 +1231,9 @@
             .play-button-large {
                 font-size: 4rem;
             }
-
-            .control-btn {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-            }
-
-            .time-display {
-                font-size: 0.8rem;
-            }
-
-            .premium-controls {
-                padding: 15px;
-                padding-top: 30px;
+            
+            .chat-container {
+                height: 350px;
             }
         }
 
@@ -1262,16 +1290,12 @@
                 font-size: 1rem;
             }
 
-            .control-bar {
-                gap: 8px;
+            .chat-input-wrapper {
+                flex-direction: column;
             }
 
-            .left-controls, .right-controls {
-                gap: 8px;
-            }
-
-            .volume-slider {
-                width: 60px;
+            .send-btn {
+                width: 100%;
             }
         }
 
@@ -1346,6 +1370,40 @@
             border-color: rgba(33, 150, 243, 0.5);
         }
 
+        /* Player Controls */
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            padding: 12px 22px;
+            background-color: var(--bg-card);
+            color: var(--primary);
+            border: 1px solid var(--border-dark);
+            border-radius: var(--radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .control-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--primary-glow);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         /* Additional styling for theme */
         .accent-theme {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -1402,6 +1460,44 @@
             font-size: 1.5rem;
             color: var(--primary);
             flex-shrink: 0;
+        }
+
+        /* YouTube badge */
+        .youtube-badge {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background-color: #FF0000;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Live indicator */
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            background-color: #FF0000;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .live-indicator::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            margin-right: 5px;
         }
 
         /* URL examples */
@@ -1556,14 +1652,22 @@
             gap: 10px;
             margin-top: 10px;
         }
-
-        /* Hide default video controls */
-        #main-video::-webkit-media-controls {
-            display: none !important;
+        
+        /* Firebase connection status */
+        .firebase-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
-
-        #main-video::-webkit-media-controls-enclosure {
-            display: none !important;
+        
+        .firebase-connected {
+            color: #4CAF50;
+        }
+        
+        .firebase-disconnected {
+            color: #FF9800;
         }
     </style>
 </head>
@@ -1597,20 +1701,62 @@
             <h1 data-aos="fade-up">Premium Video Experience</h1>
             <p data-aos="fade-up" data-aos-delay="100">A secure video player with support for HLS, DASH, YouTube, and Live Streams. Share videos without revealing source URLs.</p>
 
-            <div class="player-container" data-aos="fade-up" data-aos-delay="200">
-                <div id="video-player">
-                    <div class="player-placeholder" id="player-placeholder">
-                        <img src="" alt="Thumbnail Preview" class="thumbnail-preview" id="thumbnail-preview">
-                        <div class="thumbnail-overlay">
-                            <i class="fas fa-play-circle play-button-large"></i>
-                            <div class="play-text">Click to Play Video</div>
+            <div class="player-chat-container">
+                <div class="player-container" data-aos="fade-up" data-aos-delay="200">
+                    <div id="video-player">
+                        <div class="player-placeholder" id="player-placeholder">
+                            <img src="" alt="Thumbnail Preview" class="thumbnail-preview" id="thumbnail-preview">
+                            <div class="thumbnail-overlay">
+                                <i class="fas fa-play-circle play-button-large"></i>
+                                <div class="play-text">Click to Play Video</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spinner" id="loading-spinner"></div>
+                </div>
+
+                <!-- Chat Container - Now below video player on all screens -->
+                <div class="chat-container" data-aos="fade-up" data-aos-delay="300">
+                    <div class="chat-header">
+                        <h3>
+                            <i class="fas fa-comments"></i>
+                            Live Chat
+                        </h3>
+                        <div class="online-users">
+                            <span class="firebase-status" id="firebase-status">
+                                <i class="fas fa-circle firebase-connected"></i>
+                                <span>Connected</span>
+                            </span>
+                            <span class="online-indicator"></span>
+                            <span id="online-count">1</span> online
+                        </div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="chat-welcome">
+                            <i class="fas fa-comments"></i>
+                            <h4>Welcome to Live Chat!</h4>
+                            <p>Start chatting with others watching this video</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-container">
+                        <div class="chat-input-wrapper">
+                            <input type="text" 
+                                   class="chat-input" 
+                                   id="chat-input" 
+                                   placeholder="Type your message..."
+                                   maxlength="500"
+                                   autocomplete="off">
+                            <button class="btn btn-primary send-btn" id="send-btn" disabled>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="spinner" id="loading-spinner"></div>
             </div>
 
-            <div class="input-group" data-aos="fade-up" data-aos-delay="300">
+            <div class="input-group" data-aos="fade-up" data-aos-delay="400">
                 <span class="badge">Works with M3U8 / HLS / YouTube & Live</span>
                 <div class="video-input-container">
                     <input type="text" class="url-input blurred" id="video-url" placeholder="Enter Your Link (e.g., https://example.com/stream.m3u8 or YouTube URL)" readonly>
@@ -1761,6 +1907,9 @@
                 <button class="btn btn-secondary horizontal-btn" id="thumbnail-settings-btn" style="display: none;">
                     <i class="fas fa-image"></i> Thumbnail Settings
                 </button>
+                <button class="btn btn-secondary horizontal-btn" id="clear-chat-btn">
+                    <i class="fas fa-trash"></i> Clear Chat
+                </button>
             </div>
         </section>
 
@@ -1805,11 +1954,11 @@
                 </div>
                 <div class="security-item">
                     <div class="security-icon">
-                        <i class="fas fa-image"></i>
+                        <i class="fas fa-comments"></i>
                     </div>
                     <div>
-                        <h4>Custom Thumbnails</h4>
-                        <p>Set custom thumbnails for videos (Admin only)</p>
+                        <h4>Live Chat</h4>
+                        <p>Real-time chat with other viewers using Firebase</p>
                     </div>
                 </div>
             </div>
@@ -1857,10 +2006,10 @@
 
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
                     <div class="feature-icon">
-                        <i class="fas fa-expand"></i>
+                        <i class="fas fa-comments"></i>
                     </div>
-                    <h3>Picture-in-Picture</h3>
-                    <p>Watch videos in PiP mode while using other applications.</p>
+                    <h3>Live Chat</h3>
+                    <p>Real-time chat with other viewers during playback.</p>
                 </div>
 
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
@@ -1934,7 +2083,7 @@
                 </button>
             </div>
 
-            <p class="password-hint">Default password: murlikumar65@</p>
+            <p class="password-hint">Default password: 12345678</p>
 
             <div class="modal-actions">
                 <button class="btn btn-primary" id="submit-password">
@@ -1942,6 +2091,32 @@
                 </button>
                 <button class="btn btn-secondary" id="cancel-password">
                     Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Username Modal -->
+    <div class="modal" id="username-modal">
+        <div class="username-modal-content">
+            <div class="username-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <h2>Choose Your Username</h2>
+            <p>Enter a username to join the live chat</p>
+
+            <div class="password-input-container">
+                <input type="text" class="username-input" id="username-input" placeholder="Enter username" autocomplete="off" maxlength="20">
+            </div>
+
+            <p class="password-hint">This name will be visible to other chat participants</p>
+
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="submit-username">
+                    <i class="fas fa-check"></i> Join Chat
+                </button>
+                <button class="btn btn-secondary" id="skip-username">
+                    Skip for Now
                 </button>
             </div>
         </div>
@@ -2070,10 +2245,188 @@
 
     <div class="toast" id="toast"></div>
 
-    <!-- Scripts -->
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <!-- Main Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBsxorHibHqKy3BcnYr-sgAbnQtQpBmO9E",
+            authDomain: "video-s-34a3f.firebaseapp.com",
+            databaseURL: "https://video-s-34a3f-default-rtdb.firebaseio.com",
+            projectId: "video-s-34a3f",
+            storageBucket: "video-s-34a3f.firebasestorage.app",
+            messagingSenderId: "519619902794",
+            appId: "1:519619902794:web:d65d0463f6bd2030f9d5b3",
+            measurementId: "G-CD0RR5BP6S"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        
+        // Chat references
+        const chatRef = database.ref('chatMessages');
+        const onlineUsersRef = database.ref('onlineUsers');
+        
+        // Chat variables
+        let username = localStorage.getItem('chatUsername') || '';
+        let localChatMessages = [];
+        let onlineUsers = 1;
+        let currentUserRef = null;
+        
+        // Update Firebase connection status
+        function updateFirebaseStatus(connected) {
+            const statusElement = document.getElementById('firebase-status');
+            const icon = statusElement.querySelector('i');
+            const text = statusElement.querySelector('span:last-child');
+            
+            if (connected) {
+                icon.className = 'fas fa-circle firebase-connected';
+                text.textContent = 'Connected';
+            } else {
+                icon.className = 'fas fa-circle firebase-disconnected';
+                text.textContent = 'Connecting...';
+            }
+        }
+        
+        // Initialize online users tracking
+        function initializeOnlineUsers() {
+            // Create a unique ID for this user
+            const userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            currentUserRef = database.ref(`onlineUsers/${userId}`);
+            
+            // Set user as online
+            currentUserRef.set({
+                username: username || 'Anonymous',
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                isAdmin: username === 'murlikumar'
+            });
+            
+            // Remove user when they disconnect
+            currentUserRef.onDisconnect().remove();
+            
+            // Listen for online users changes
+            onlineUsersRef.on('value', (snapshot) => {
+                const users = snapshot.val();
+                if (users) {
+                    onlineUsers = Object.keys(users).length;
+                } else {
+                    onlineUsers = 1; // At least the current user
+                }
+                document.getElementById('online-count').textContent = onlineUsers;
+            });
+        }
+        
+        // Setup Firebase chat listener
+        function setupFirebaseChatListener() {
+            updateFirebaseStatus(true);
+            
+            // Listen for new messages
+            chatRef.on('child_added', (snapshot) => {
+                const messageData = snapshot.val();
+                const messageId = snapshot.key;
+                
+                // Check if message already exists locally
+                if (!localChatMessages.find(msg => msg.id === messageId)) {
+                    const messageObj = {
+                        id: messageId,
+                        ...messageData,
+                        time: messageData.timestamp ? 
+                            new Date(messageData.timestamp).toLocaleTimeString([], { 
+                                hour: '2-digit', minute: '2-digit' 
+                            }) : 
+                            new Date().toLocaleTimeString([], { 
+                                hour: '2-digit', minute: '2-digit' 
+                            }),
+                        isOwn: messageData.sender === username
+                    };
+                    
+                    localChatMessages.push(messageObj);
+                    renderMessage(messageObj);
+                    scrollChatToBottom();
+                }
+            });
+            
+            // Listen for connection status
+            database.ref('.info/connected').on('value', (snapshot) => {
+                updateFirebaseStatus(snapshot.val() === true);
+            });
+        }
+        
+        // Send message to Firebase
+        function sendChatMessage() {
+            const chatInput = document.getElementById('chat-input');
+            const message = chatInput.value.trim();
+            
+            if (!message) return;
+            
+            if (!username) {
+                showUsernameModal();
+                return;
+            }
+            
+            // Check if user is admin (murlikumar)
+            const isAdmin = username === 'murlikumar';
+            const displayName = isAdmin ? `${username} (Admin)` : username;
+            
+            // Create message object
+            const messageObj = {
+                sender: username,
+                displayName: displayName,
+                message: message,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                isAdmin: isAdmin
+            };
+            
+            try {
+                // Push message to Firebase
+                chatRef.push(messageObj);
+                
+                // Clear input
+                chatInput.value = '';
+                document.getElementById('send-btn').disabled = true;
+                
+            } catch (error) {
+                console.error('Error sending message:', error);
+                showToast('Failed to send message. Please check your connection.', 'error');
+                updateFirebaseStatus(false);
+            }
+        }
+        
+        // Clear all chat messages from Firebase
+        function clearFirebaseChat() {
+            if (confirm('Are you sure you want to clear all chat messages? This will delete ALL messages for everyone.')) {
+                try {
+                    // Only allow admin to clear chat
+                    if (username !== 'murlikumar') {
+                        showToast('Only admin can clear chat messages.', 'error');
+                        return;
+                    }
+                    
+                    // Remove all messages from Firebase
+                    chatRef.remove();
+                    
+                    // Clear local messages
+                    localChatMessages = [];
+                    
+                    // Re-render chat (will show welcome message)
+                    renderChatMessages();
+                    
+                    showToast('All chat messages cleared', 'success');
+                    addSystemMessage('Chat has been cleared by admin');
+                    
+                } catch (error) {
+                    console.error('Error clearing chat:', error);
+                    showToast('Failed to clear chat messages', 'error');
+                }
+            }
+        }
+        
+        // Main initialization
         document.addEventListener('DOMContentLoaded', function() {
             AOS.init({
                 duration: 800,
@@ -2093,25 +2446,25 @@
             document.documentElement.classList.toggle('light-theme', savedTheme === 'light');
             updateThemeIcon(savedTheme);
 
-            // Set default password to murlikumar65@ if not already set
+            // Set default password
             if (!localStorage.getItem('editPassword')) {
                 localStorage.setItem('editPassword', 'murlikumar65@');
             }
 
-            // Check if edit mode is active from localStorage
+            // Check if edit mode is active
             const editModeActive = localStorage.getItem('editModeActive') === 'true';
-
             if (editModeActive) {
-                // Edit mode is permanently active
                 unlockEditing();
             }
 
-            // Load thumbnail from localStorage if exists
+            // Load thumbnail from localStorage
             loadThumbnail();
 
+            // Initialize chat
+            initializeChat();
+
             // Theme toggle functionality
-            const themeToggle = document.getElementById('theme-toggle');
-            themeToggle.addEventListener('click', () => {
+            document.getElementById('theme-toggle').addEventListener('click', () => {
                 const isLight = document.documentElement.classList.toggle('light-theme');
                 const theme = isLight ? 'light' : 'dark';
                 localStorage.setItem('theme', theme);
@@ -2119,23 +2472,18 @@
                 showToast(`Switched to ${theme} theme`, 'success');
             });
 
-            // Check URL parameters for auto-play
+            // Check URL parameters
             const urlParams = new URLSearchParams(window.location.search);
             const playParam = urlParams.get('play');
             const notesParam = urlParams.get('notes');
             const dppParam = urlParams.get('dpp');
             const thumbParam = urlParams.get('thumb');
 
-            // Set video URL from parameters (but don't auto-play)
             if (playParam) {
                 try {
                     const videoId = atob(playParam);
                     document.getElementById('video-url').value = videoId;
-
-                    // Update share URL
                     updateShareUrl();
-
-                    // Show toast message
                     showToast('Video URL loaded. Click Play to start watching.', 'info');
                 } catch (e) {
                     console.error("Error decoding video parameter:", e);
@@ -2202,7 +2550,6 @@
                 }
             });
 
-            // Click on thumbnail overlay to play
             document.getElementById('player-placeholder').addEventListener('click', () => {
                 const url = document.getElementById('video-url').value;
                 if (isValidUrl(url)) {
@@ -2214,7 +2561,6 @@
                 }
             });
 
-            // Reset button functionality
             document.getElementById('reset-btn').addEventListener('click', resetAll);
 
             // Lock overlay click handlers
@@ -2296,6 +2642,7 @@
             document.getElementById('export-links-btn').addEventListener('click', exportLinks);
             document.getElementById('quick-share-btn').addEventListener('click', quickShare);
             document.getElementById('bookmark-btn').addEventListener('click', bookmarkSession);
+            document.getElementById('clear-chat-btn').addEventListener('click', clearFirebaseChat);
 
             // Modal functionality
             document.getElementById('telegram-join').addEventListener('click', (e) => {
@@ -2369,16 +2716,181 @@
             });
         });
 
-        // Premium Video Player Variables
-        let player = null;
-        let isPlaying = false;
-        let currentTime = 0;
-        let duration = 0;
-        let isFullscreen = false;
-        let playbackRate = 1.0;
-        let volume = 0.8;
-        let videoQualities = [];
-        let currentQuality = 'auto';
+        // CHAT FUNCTIONS
+        function initializeChat() {
+            // Check if username is set
+            if (!username) {
+                showUsernameModal();
+            } else {
+                // Initialize Firebase chat after username is set
+                setTimeout(() => {
+                    setupFirebaseChatListener();
+                    initializeOnlineUsers();
+                }, 1000);
+            }
+
+            // Setup chat event listeners
+            const chatInput = document.getElementById('chat-input');
+            const sendBtn = document.getElementById('send-btn');
+
+            // Enable/disable send button based on input
+            chatInput.addEventListener('input', function() {
+                sendBtn.disabled = this.value.trim() === '';
+            });
+
+            // Send message on Enter key
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendChatMessage();
+                }
+            });
+
+            // Send message on button click
+            sendBtn.addEventListener('click', sendChatMessage);
+        }
+
+        function showUsernameModal() {
+            document.getElementById('username-modal').style.display = 'flex';
+            
+            const submitBtn = document.getElementById('submit-username');
+            const skipBtn = document.getElementById('skip-username');
+            const usernameInput = document.getElementById('username-input');
+            
+            // Remove existing listeners
+            const newSubmitBtn = submitBtn.cloneNode(true);
+            const newSkipBtn = skipBtn.cloneNode(true);
+            submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
+            skipBtn.parentNode.replaceChild(newSkipBtn, skipBtn);
+            
+            // Add new listeners
+            document.getElementById('submit-username').addEventListener('click', function() {
+                const usernameInput = document.getElementById('username-input').value.trim();
+                if (usernameInput) {
+                    username = usernameInput;
+                    localStorage.setItem('chatUsername', username);
+                    document.getElementById('username-modal').style.display = 'none';
+                    
+                    // Initialize Firebase after username is set
+                    setupFirebaseChatListener();
+                    initializeOnlineUsers();
+                    
+                    // Add welcome message
+                    addSystemMessage(`${username} has joined the chat`);
+                    showToast(`Welcome to the chat, ${username}!`, 'success');
+                }
+            });
+            
+            document.getElementById('skip-username').addEventListener('click', function() {
+                username = `User${Math.floor(Math.random() * 1000)}`;
+                localStorage.setItem('chatUsername', username);
+                document.getElementById('username-modal').style.display = 'none';
+                
+                // Initialize Firebase after username is set
+                setupFirebaseChatListener();
+                initializeOnlineUsers();
+                
+                addSystemMessage(`${username} has joined the chat`);
+                showToast(`Welcome to the chat, ${username}!`, 'success');
+            });
+            
+            document.getElementById('username-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('submit-username').click();
+                }
+            });
+        }
+
+        function renderChatMessages() {
+            const chatMessagesContainer = document.getElementById('chat-messages');
+            chatMessagesContainer.innerHTML = '';
+            
+            if (localChatMessages.length === 0) {
+                chatMessagesContainer.innerHTML = `
+                    <div class="chat-welcome">
+                        <i class="fas fa-comments"></i>
+                        <h4>Welcome to Live Chat!</h4>
+                        <p>Start chatting with others watching this video</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            localChatMessages.forEach(message => renderMessage(message, false));
+            scrollChatToBottom();
+        }
+
+        function renderMessage(messageObj, animate = true) {
+            const chatMessagesContainer = document.getElementById('chat-messages');
+            
+            // Remove welcome message if it exists
+            const welcomeMessage = chatMessagesContainer.querySelector('.chat-welcome');
+            if (welcomeMessage) {
+                welcomeMessage.remove();
+            }
+            
+            let messageHtml;
+            
+            if (messageObj.isSystem) {
+                messageHtml = `
+                    <div class="chat-notification" ${animate ? 'style="animation: messageIn 0.3s ease-out;"' : ''}>
+                        <i class="fas fa-info-circle"></i> ${escapeHtml(messageObj.message)}
+                    </div>
+                `;
+            } else {
+                const messageClass = messageObj.isOwn ? 'message-user' : 'message-other';
+                
+                // Use displayName if available, otherwise use sender
+                const senderDisplayName = messageObj.displayName || messageObj.sender;
+                
+                // Check if user is admin (murlikumar)
+                const isAdminUser = messageObj.sender === 'murlikumar' || messageObj.isAdmin;
+                const adminBadge = isAdminUser ? '<span class="admin-badge">Admin</span>' : '';
+                
+                messageHtml = `
+                    <div class="message ${messageClass}" ${animate ? 'style="animation: messageIn 0.3s ease-out;"' : ''}>
+                        <div class="message-bubble">
+                            ${escapeHtml(messageObj.message)}
+                        </div>
+                        <div class="message-info">
+                            <span class="message-sender">
+                                ${escapeHtml(senderDisplayName)}
+                                ${adminBadge}
+                            </span>
+                            <span class="message-time">${messageObj.time}</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            chatMessagesContainer.insertAdjacentHTML('beforeend', messageHtml);
+        }
+
+        function addSystemMessage(message) {
+            const messageObj = {
+                id: Date.now(),
+                sender: 'System',
+                message: message,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                isSystem: true,
+                isOwn: false
+            };
+            
+            localChatMessages.push(messageObj);
+            renderMessage(messageObj);
+            scrollChatToBottom();
+        }
+
+        function scrollChatToBottom() {
+            const chatMessagesContainer = document.getElementById('chat-messages');
+            chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
 
         // Function to update theme icon
         function updateThemeIcon(theme) {
@@ -2390,382 +2902,6 @@
                 icon.classList.remove('fa-moon');
                 icon.classList.add('fa-sun');
             }
-        }
-
-        // Premium Video Player Functions
-        function initializePremiumPlayer() {
-            const playerContainer = document.getElementById('video-player');
-            playerContainer.innerHTML = `
-                <div class="premium-video-player" id="premium-player">
-                    <video id="main-video"></video>
-                    <div class="premium-controls">
-                        <div class="progress-container" id="progress-container">
-                            <div class="progress-bar" id="progress-bar"></div>
-                        </div>
-                        <div class="control-bar">
-                            <div class="left-controls">
-                                <button class="control-btn" id="play-pause-btn">
-                                    <i class="fas fa-play"></i>
-                                </button>
-                                <div class="time-display">
-                                    <span id="current-time">0:00</span> / <span id="duration-time">0:00</span>
-                                </div>
-                            </div>
-                            <div class="right-controls">
-                                <div class="volume-container">
-                                    <button class="control-btn" id="volume-btn">
-                                        <i class="fas fa-volume-up"></i>
-                                    </button>
-                                    <div class="volume-slider" id="volume-slider">
-                                        <div class="volume-level" id="volume-level"></div>
-                                    </div>
-                                </div>
-                                <div class="settings-menu">
-                                    <button class="control-btn" id="settings-btn">
-                                        <i class="fas fa-cog"></i>
-                                    </button>
-                                    <div class="settings-dropdown" id="settings-dropdown">
-                                        <div class="settings-option" id="speed-option">
-                                            <span>Speed</span>
-                                            <span>1x</span>
-                                        </div>
-                                        <div class="settings-option" id="quality-option">
-                                            <span>Quality</span>
-                                            <span>Auto</span>
-                                        </div>
-                                        <div class="settings-option" id="pip-option">
-                                            <span>Picture-in-Picture</span>
-                                            <i class="fas fa-picture-in-picture"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="control-btn" id="fullscreen-btn">
-                                    <i class="fas fa-expand"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            player = document.getElementById('main-video');
-            player.volume = volume;
-            player.playbackRate = playbackRate;
-
-            // Initialize event listeners for premium controls
-            setupPremiumControls();
-
-            return player;
-        }
-
-        function setupPremiumControls() {
-            // Play/Pause button
-            const playPauseBtn = document.getElementById('play-pause-btn');
-            playPauseBtn.addEventListener('click', togglePlayPause);
-
-            // Progress bar
-            const progressContainer = document.getElementById('progress-container');
-            const progressBar = document.getElementById('progress-bar');
-            
-            progressContainer.addEventListener('click', seekVideo);
-            
-            player.addEventListener('timeupdate', updateProgress);
-            player.addEventListener('loadedmetadata', () => {
-                duration = player.duration;
-                document.getElementById('duration-time').textContent = formatTime(duration);
-            });
-
-            // Volume controls
-            const volumeBtn = document.getElementById('volume-btn');
-            const volumeSlider = document.getElementById('volume-slider');
-            const volumeLevel = document.getElementById('volume-level');
-            
-            volumeBtn.addEventListener('click', toggleMute);
-            volumeSlider.addEventListener('click', adjustVolume);
-            
-            player.addEventListener('volumechange', updateVolumeDisplay);
-
-            // Settings menu
-            const settingsBtn = document.getElementById('settings-btn');
-            const speedOption = document.getElementById('speed-option');
-            const qualityOption = document.getElementById('quality-option');
-            const pipOption = document.getElementById('pip-option');
-
-            speedOption.addEventListener('click', showSpeedMenu);
-            qualityOption.addEventListener('click', showQualityMenu);
-            pipOption.addEventListener('click', togglePictureInPicture);
-
-            // Fullscreen button
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
-            fullscreenBtn.addEventListener('click', toggleFullscreen);
-
-            // Keyboard shortcuts
-            document.addEventListener('keydown', handleKeyboardShortcuts);
-        }
-
-        function togglePlayPause() {
-            const playPauseBtn = document.getElementById('play-pause-btn');
-            const icon = playPauseBtn.querySelector('i');
-            
-            if (player.paused) {
-                player.play();
-                icon.classList.remove('fa-play');
-                icon.classList.add('fa-pause');
-                isPlaying = true;
-            } else {
-                player.pause();
-                icon.classList.remove('fa-pause');
-                icon.classList.add('fa-play');
-                isPlaying = false;
-            }
-        }
-
-        function updateProgress() {
-            if (!player || !player.duration) return;
-            
-            currentTime = player.currentTime;
-            const progress = (currentTime / player.duration) * 100;
-            document.getElementById('progress-bar').style.width = `${progress}%`;
-            document.getElementById('current-time').textContent = formatTime(currentTime);
-        }
-
-        function seekVideo(e) {
-            if (!player || !player.duration) return;
-            
-            const progressContainer = document.getElementById('progress-container');
-            const rect = progressContainer.getBoundingClientRect();
-            const pos = (e.clientX - rect.left) / rect.width;
-            player.currentTime = pos * player.duration;
-        }
-
-        function toggleMute() {
-            const volumeBtn = document.getElementById('volume-btn');
-            const icon = volumeBtn.querySelector('i');
-            
-            player.muted = !player.muted;
-            if (player.muted) {
-                icon.classList.remove('fa-volume-up');
-                icon.classList.add('fa-volume-mute');
-            } else {
-                icon.classList.remove('fa-volume-mute');
-                icon.classList.add('fa-volume-up');
-            }
-            updateVolumeLevel();
-        }
-
-        function adjustVolume(e) {
-            const volumeSlider = document.getElementById('volume-slider');
-            const rect = volumeSlider.getBoundingClientRect();
-            const pos = (e.clientX - rect.left) / rect.width;
-            volume = Math.max(0, Math.min(1, pos));
-            player.volume = volume;
-            player.muted = false;
-            
-            const volumeBtn = document.getElementById('volume-btn');
-            const icon = volumeBtn.querySelector('i');
-            icon.classList.remove('fa-volume-mute');
-            icon.classList.add('fa-volume-up');
-            
-            updateVolumeLevel();
-        }
-
-        function updateVolumeDisplay() {
-            updateVolumeLevel();
-        }
-
-        function updateVolumeLevel() {
-            const volumeLevel = document.getElementById('volume-level');
-            const width = player.muted ? 0 : player.volume * 100;
-            volumeLevel.style.width = `${width}%`;
-        }
-
-        function showSpeedMenu() {
-            // Create speed menu if it doesn't exist
-            let speedMenu = document.getElementById('speed-menu');
-            if (!speedMenu) {
-                speedMenu = document.createElement('div');
-                speedMenu.id = 'speed-menu';
-                speedMenu.className = 'settings-dropdown';
-                speedMenu.innerHTML = `
-                    <div class="quality-option ${playbackRate === 0.5 ? 'active' : ''}" data-speed="0.5">0.5x</div>
-                    <div class="quality-option ${playbackRate === 0.75 ? 'active' : ''}" data-speed="0.75">0.75x</div>
-                    <div class="quality-option ${playbackRate === 1.0 ? 'active' : ''}" data-speed="1">1x</div>
-                    <div class="quality-option ${playbackRate === 1.25 ? 'active' : ''}" data-speed="1.25">1.25x</div>
-                    <div class="quality-option ${playbackRate === 1.5 ? 'active' : ''}" data-speed="1.5">1.5x</div>
-                    <div class="quality-option ${playbackRate === 2.0 ? 'active' : ''}" data-speed="2">2x</div>
-                `;
-                
-                speedMenu.querySelectorAll('.quality-option').forEach(option => {
-                    option.addEventListener('click', function() {
-                        const speed = parseFloat(this.dataset.speed);
-                        player.playbackRate = speed;
-                        playbackRate = speed;
-                        document.getElementById('speed-option').querySelector('span:last-child').textContent = `${speed}x`;
-                        speedMenu.remove();
-                    });
-                });
-                
-                const settingsBtn = document.getElementById('settings-btn');
-                settingsBtn.parentNode.appendChild(speedMenu);
-                
-                // Position the menu
-                const rect = settingsBtn.getBoundingClientRect();
-                speedMenu.style.bottom = '50px';
-                speedMenu.style.right = '0';
-                
-                // Close menu when clicking outside
-                setTimeout(() => {
-                    document.addEventListener('click', function closeMenu(e) {
-                        if (!speedMenu.contains(e.target) && !settingsBtn.contains(e.target)) {
-                            speedMenu.remove();
-                            document.removeEventListener('click', closeMenu);
-                        }
-                    });
-                }, 0);
-            } else {
-                speedMenu.remove();
-            }
-        }
-
-        function showQualityMenu() {
-            if (videoQualities.length === 0) {
-                showToast('No quality options available', 'info');
-                return;
-            }
-            
-            // Create quality menu
-            let qualityMenu = document.getElementById('quality-menu');
-            if (!qualityMenu) {
-                qualityMenu = document.createElement('div');
-                qualityMenu.id = 'quality-menu';
-                qualityMenu.className = 'settings-dropdown';
-                
-                let menuHTML = `<div class="quality-option ${currentQuality === 'auto' ? 'active' : ''}" data-quality="auto">Auto</div>`;
-                videoQualities.forEach(quality => {
-                    menuHTML += `<div class="quality-option ${currentQuality === quality ? 'active' : ''}" data-quality="${quality}">${quality}</div>`;
-                });
-                qualityMenu.innerHTML = menuHTML;
-                
-                qualityMenu.querySelectorAll('.quality-option').forEach(option => {
-                    option.addEventListener('click', function() {
-                        const quality = this.dataset.quality;
-                        currentQuality = quality;
-                        document.getElementById('quality-option').querySelector('span:last-child').textContent = quality;
-                        
-                        // Here you would normally change the video quality
-                        // For now, we'll just show a toast
-                        showToast(`Quality set to ${quality}`, 'success');
-                        qualityMenu.remove();
-                    });
-                });
-                
-                const settingsBtn = document.getElementById('settings-btn');
-                settingsBtn.parentNode.appendChild(qualityMenu);
-                
-                // Position the menu
-                const rect = settingsBtn.getBoundingClientRect();
-                qualityMenu.style.bottom = '50px';
-                qualityMenu.style.right = '0';
-                
-                // Close menu when clicking outside
-                setTimeout(() => {
-                    document.addEventListener('click', function closeMenu(e) {
-                        if (!qualityMenu.contains(e.target) && !settingsBtn.contains(e.target)) {
-                            qualityMenu.remove();
-                            document.removeEventListener('click', closeMenu);
-                        }
-                    });
-                }, 0);
-            } else {
-                qualityMenu.remove();
-            }
-        }
-
-        function togglePictureInPicture() {
-            if (document.pictureInPictureElement) {
-                document.exitPictureInPicture();
-            } else if (player && player.requestPictureInPicture) {
-                player.requestPictureInPicture();
-            } else {
-                showToast('Picture-in-Picture not supported', 'error');
-            }
-        }
-
-        function toggleFullscreen() {
-            const premiumPlayer = document.getElementById('premium-player');
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
-            const icon = fullscreenBtn.querySelector('i');
-            
-            if (!isFullscreen) {
-                if (premiumPlayer.requestFullscreen) {
-                    premiumPlayer.requestFullscreen();
-                } else if (premiumPlayer.webkitRequestFullscreen) {
-                    premiumPlayer.webkitRequestFullscreen();
-                } else if (premiumPlayer.msRequestFullscreen) {
-                    premiumPlayer.msRequestFullscreen();
-                }
-                icon.classList.remove('fa-expand');
-                icon.classList.add('fa-compress');
-                isFullscreen = true;
-                premiumPlayer.classList.add('fullscreen');
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-                icon.classList.remove('fa-compress');
-                icon.classList.add('fa-expand');
-                isFullscreen = false;
-                premiumPlayer.classList.remove('fullscreen');
-            }
-        }
-
-        function handleKeyboardShortcuts(e) {
-            // Only handle shortcuts when video player is focused
-            if (!player) return;
-            
-            switch(e.key.toLowerCase()) {
-                case ' ':
-                case 'k':
-                    e.preventDefault();
-                    togglePlayPause();
-                    break;
-                case 'f':
-                    toggleFullscreen();
-                    break;
-                case 'm':
-                    toggleMute();
-                    break;
-                case 'arrowleft':
-                    e.preventDefault();
-                    player.currentTime = Math.max(0, player.currentTime - 5);
-                    break;
-                case 'arrowright':
-                    e.preventDefault();
-                    player.currentTime = Math.min(player.duration, player.currentTime + 5);
-                    break;
-                case 'arrowup':
-                    e.preventDefault();
-                    volume = Math.min(1, volume + 0.1);
-                    player.volume = volume;
-                    updateVolumeLevel();
-                    break;
-                case 'arrowdown':
-                    e.preventDefault();
-                    volume = Math.max(0, volume - 0.1);
-                    player.volume = volume;
-                    updateVolumeLevel();
-                    break;
-            }
-        }
-
-        function formatTime(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
         // THUMBNAIL FUNCTIONS
@@ -3046,6 +3182,8 @@
         }
 
         // Video player functionality
+        let player;
+
         function getYouTubeId(url) {
             const patterns = [
                 /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/,
@@ -3069,6 +3207,16 @@
             return url.includes('youtube.com/live/') || (url.includes('youtube.com/watch') && url.includes('&live=1'));
         }
 
+        function initializePlayer() {
+            const playerContainer = document.getElementById('video-player');
+            playerContainer.innerHTML = `
+                <video id="main-video" controls style="width: 100%; height: 100%;">
+                    Your browser does not support the video tag.
+                </video>
+            `;
+            return document.getElementById('main-video');
+        }
+
         function playVideo(url) {
             showLoadingSpinner(true);
             localStorage.setItem('lastVideo', url);
@@ -3084,7 +3232,7 @@
                 embedYouTubeVideo(youtubeId, isLive);
             } else {
                 if (!player) {
-                    player = initializePremiumPlayer();
+                    player = initializePlayer();
                 }
 
                 player.src = url;
@@ -3123,10 +3271,7 @@
                     allowfullscreen
                     style="border-radius: 8px;"
                 ></iframe>
-                <div class="youtube-badge">
-                    YouTube
-                    ${isLive ? '<div class="live-indicator"><div class="live-dot"></div>LIVE</div>' : ''}
-                </div>
+                <div class="youtube-badge">YouTube${isLive ? '<span class="live-indicator">LIVE</span>' : ''}</div>
             `;
 
             showLoadingSpinner(false);
